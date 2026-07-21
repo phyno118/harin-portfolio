@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="LUMIRIN scented candle collection" />
+    <title>LUMIRIN — Scented moments</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header" id="top">
+      <a class="wordmark" href="#top">LUMIRIN</a>
+      <button class="menu-toggle" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span></button>
+      <nav class="nav" aria-label="주요 메뉴">
+        <a href="#collection">Shop</a><a href="#collection">Collection</a><a href="#principles">About</a>
+        <button class="bag-button" type="button" aria-label="장바구니 열기">Bag <span data-cart-count>0</span></button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-label="LUMIRIN hero">
+        <img src="assets/hero.webp" alt="햇살이 드는 차분한 거실" />
+        <div class="hero-copy reveal"><p>LUMIRIN</p><h1>빛으로 머무는 향</h1><span>Fragrance designed for your quiet moments.</span></div>
+        <a class="scroll-cue" href="#collection">Discover <i></i></a>
+      </section>
+
+      <section class="collection section" id="collection">
+        <header class="section-heading reveal"><p>Our signature scents</p><h2>COLLECTION</h2><div class="filters" role="group" aria-label="제품 필터"><button class="active" data-filter="all">ALL</button><button data-filter="candle">CANDLE</button><button data-filter="gift">GIFT</button></div></header>
+        <div class="showcase-grid">
+          <div id="featured-product"></div>
+          <div class="feature-card reveal" data-category="gift">
+            <img src="assets/gift-set.webp" alt="루미린 기프트 세트" />
+            <div><small>GIFT COLLECTION 01</small><h3>LUMIRIN GIFT SET</h3><p>캔들과 우드 워머를 하나의 구성으로 담아,<br />불을 켜지 않는 순간에도 공간에 잔잔한 온기를 더합니다.</p><strong>₩68,000</strong><button class="outline add-to-cart" data-product="Lumirin Gift Set">ADD TO CART</button></div>
+          </div>
+        </div>
+        <div class="product-grid" id="product-grid"></div>
+        <button class="more-button" id="more-button" type="button">MORE VIEW</button>
+      </section>
+
+      <section class="manifesto reveal"><p>FROM THE FIRST LIGHT TO THE LAST MOMENT.</p><span>하루의 시작부터 깊은 밤까지, 당신의 공간에 조용히 향이 머뭅니다.</span></section>
+
+      <section class="warmer split-section reveal">
+        <div class="media"><img src="assets/warmer.webp" alt="루미린 시그니처 우드 워머" /></div>
+        <div class="copy"><small>LUMIRIN OBJECT 01</small><h2><em>LUMIRIN</em>Signature Wood Warmer</h2><p>빛은 더 따뜻하게, 향은 더 오래도록.<br />은은한 온도로 캔들을 녹여 고요한 향의 결을 공간에 채웁니다.</p><dl><div><dt>Material</dt><dd>Natural wood · Glass</dd></div><div><dt>Light</dt><dd>Warm dimming</dd></div></dl><a href="#collection">MORE VIEW</a></div>
+      </section>
+
+      <section class="strategy section reveal"><header class="section-heading"><p>How we make</p><h2>Material Strategy</h2></header><div class="strategy-grid"><article><b>01</b><h3>Wax</h3><p>식물성 소이 왁스를 사용해<br />깨끗하고 부드럽게 타오릅니다.</p></article><article><b>02</b><h3>Wick</h3><p>안정적으로 빛을 유지하는<br />코튼 심지를 고집합니다.</p></article><article><b>03</b><h3>Fragrance</h3><p>공간의 기억이 되는 섬세한<br />향의 레이어를 설계합니다.</p></article></div></section>
+
+      <section class="principles" id="principles">
+        <div class="principle-copy reveal">
+          <article><h2>OUR WAY</h2><ul><li>향이 앞서지 않도록 조율합니다</li><li>공간보다 사람의 리듬을 기준으로 합니다</li><li>오래 머물러도 피로하지 않은 발향을 선택합니다</li><li>불을 켜지 않은 시간까지 고려합니다</li></ul></article>
+          <article><h2>NOT OUR WAY</h2><ul><li>처음부터 강하게 존재감을 드러내는 향</li><li>공간을 지배하는 방향의 연출</li><li>트렌드에 맞춰 빠르게 소비되는 조합</li><li>장식이 기능보다 앞서는 디자인</li></ul></article>
+        </div>
+        <img src="assets/pink-table.webp" alt="꽃병 옆에 놓인 핑크 캔들" />
+      </section>
+
+    </main>
+
+    <footer><a class="wordmark" href="#top">LUMIRIN</a><p>Copyright © 2026 LUMIRIN. All rights reserved.</p><div><a href="#">Instagram</a><a href="#">Kakao</a><a href="mailto:hello@lumirin.kr">Email</a></div></footer>
+
+    <aside class="cart" aria-hidden="true"><div class="cart-head"><h2>Your Bag</h2><button class="cart-close" aria-label="장바구니 닫기">×</button></div><div class="cart-items"><p class="cart-empty">아직 담긴 제품이 없습니다.</p></div><div class="cart-foot"><span>Total</span><strong data-cart-total>₩0</strong><button type="button">CHECKOUT</button></div></aside><div class="overlay"></div>
+  </body>
+</html>
