@@ -1,0 +1,218 @@
+/* Flowly: concise product summary before the full case study */
+.project-card--flowly.is-expanded {
+  grid-template-rows: minmax(250px, 38vh) minmax(0, 62vh);
+  background: #f7f5ff;
+}
+
+.project-card--flowly.is-expanded .project-card__visual {
+  border-bottom-color: #dcd7ef;
+}
+
+.project-card--flowly.is-expanded .project-card__body {
+  grid-template-columns: minmax(240px, .72fr) minmax(530px, 1.28fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  column-gap: clamp(48px, 7vw, 110px);
+  row-gap: clamp(17px, 2.4vh, 26px);
+  overflow: hidden;
+  padding: clamp(24px, 3.2vh, 34px) clamp(42px, 7vw, 112px) clamp(18px, 2.7vh, 27px);
+  background:
+    linear-gradient(rgba(108, 92, 231, .025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(108, 92, 231, .025) 1px, transparent 1px),
+    #f7f5ff;
+  background-size: 48px 48px;
+}
+
+.project-card--flowly.is-expanded .project-meta,
+.project-card--flowly.is-expanded .project-meta > div {
+  border-color: #dcd7ef;
+}
+
+.project-card--flowly.is-expanded .project-card__body > div:first-child > p,
+.project-card--flowly.is-expanded .project-meta dt,
+.project-detail--flowly span {
+  color: #6c5ce7;
+}
+
+.project-card--flowly.is-expanded .project-detail--flowly {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: .72fr 1.28fr;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 0 clamp(48px, 7vw, 110px);
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid #dcd7ef;
+}
+
+.flowly-detail__lead {
+  align-self: center;
+  padding-right: 10px;
+}
+
+.project-detail--flowly .flowly-detail__lead h4 {
+  margin: 12px 0 0;
+  color: #25242b;
+  font-size: clamp(27px, 2.7vw, 40px);
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: -.05em;
+}
+
+.flowly-detail__lead > p {
+  max-width: 400px;
+  margin: 16px 0 0;
+  color: #706d7d;
+  font-size: clamp(10px, .78vw, 12px);
+  line-height: 1.75;
+}
+
+.flowly-detail__focus {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  min-height: 0;
+}
+
+.project-detail--flowly .flowly-detail__focus article {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: clamp(18px, 2.3vh, 24px) clamp(16px, 1.8vw, 25px);
+  border-left: 1px solid #dcd7ef;
+}
+
+.project-detail--flowly .flowly-detail__focus article:nth-child(2) {
+  background: rgba(108, 92, 231, .075);
+}
+
+.project-detail--flowly .flowly-detail__focus h5 {
+  margin: auto 0 8px;
+  color: #25242b;
+  font-size: clamp(16px, 1.3vw, 20px);
+  line-height: 1.3;
+  letter-spacing: -.025em;
+  word-break: keep-all;
+}
+
+.project-detail--flowly .flowly-detail__focus p {
+  margin: 0;
+  color: #777382;
+  font-size: clamp(9px, .7vw, 10px);
+  line-height: 1.65;
+}
+
+.flowly-detail__ai {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: clamp(9px, 1.2vw, 18px);
+  min-height: 46px;
+  margin: 0;
+  border-top: 1px solid #dcd7ef;
+  border-bottom: 1px solid #dcd7ef;
+  color: #625e70;
+  font: 400 clamp(8px, .7vw, 10px)/1.4 "DM Sans", sans-serif;
+  white-space: nowrap;
+}
+
+.flowly-detail__ai span {
+  margin-right: auto;
+  letter-spacing: .15em;
+}
+
+.flowly-detail__ai b {
+  font-weight: 400;
+}
+
+.flowly-detail__ai i {
+  color: #6c5ce7;
+  font-style: normal;
+}
+
+.project-card--flowly.is-expanded .project-card__actions {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+@media (max-height: 760px) and (min-width: 761px) {
+  .project-card--flowly.is-expanded {
+    grid-template-rows: 34vh 66vh;
+  }
+
+  .project-card--flowly.is-expanded .project-card__body {
+    row-gap: 13px;
+    padding-top: 18px;
+    padding-bottom: 15px;
+  }
+
+  .project-detail--flowly .flowly-detail__lead h4 {
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 760px) {
+  .project-card--flowly.is-expanded {
+    grid-template-rows: 31vh minmax(0, 69vh);
+  }
+
+  .project-card--flowly.is-expanded .project-card__body {
+    display: block;
+    overflow-y: auto;
+    padding: 24px 18px 32px;
+  }
+
+  .project-card--flowly.is-expanded .project-detail--flowly {
+    display: block;
+    margin-top: 32px;
+    padding-top: 28px;
+  }
+
+  .flowly-detail__focus {
+    grid-template-columns: 1fr;
+    margin-top: 28px;
+    border-top: 1px solid #dcd7ef;
+  }
+
+  .project-detail--flowly .flowly-detail__focus article {
+    min-height: 145px;
+    padding: 22px 0;
+    border-left: 0;
+    border-bottom: 1px solid #dcd7ef;
+  }
+
+  .project-detail--flowly .flowly-detail__focus article:nth-child(2) {
+    margin: 0 -18px;
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .project-detail--flowly .flowly-detail__focus h5 {
+    margin-top: 36px;
+  }
+
+  .flowly-detail__ai {
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    margin-top: 24px;
+    padding: 16px 0;
+    white-space: normal;
+  }
+
+  .flowly-detail__ai span {
+    width: 100%;
+  }
+
+  .project-card--flowly.is-expanded .project-card__actions {
+    margin-top: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card--flowly.is-expanded {
+    animation: none;
+  }
+}

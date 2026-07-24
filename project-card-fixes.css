@@ -1,0 +1,84 @@
+/* Project-card cleanup: keep every action inside the card at narrow widths. */
+.project-card--flowly .project-card__visual > div {
+  background-image: url("assets/flowly-dashboard-card-hd.png") !important;
+}
+
+.project-card:not(.is-expanded) .project-card__visual > b,
+.project-card:not(.is-expanded) .project-card__more > span {
+  display: none !important;
+}
+
+.project-card:not(.is-expanded) .project-card__more {
+  gap: 0;
+  font-size: clamp(11px, .75vw, 13px);
+}
+
+.project-card:not(.is-expanded) .project-card__body h3 {
+  font-size: clamp(30px, 2.1vw, 38px);
+  line-height: 1.08;
+}
+
+.project-card:not(.is-expanded) .project-card__body small {
+  font-size: clamp(12px, .78vw, 14px);
+  line-height: 1.6;
+}
+
+@media (min-width: 761px) {
+  .archive--editorial .project-card:not(.is-expanded) {
+    grid-template-rows: 52% 48%;
+  }
+
+  .archive--editorial .project-card:not(.is-expanded) .project-card__body {
+    min-height: 0;
+    padding: 20px 20px 16px;
+  }
+}
+
+@media (max-width: 760px) {
+  .project-card:not(.is-expanded) .project-card__body h3 {
+    font-size: 34px;
+  }
+
+  .project-card:not(.is-expanded) .project-card__body small {
+    font-size: 13px;
+  }
+
+  .archive--editorial .project-card:not(.is-expanded) {
+    grid-template-rows: 250px auto;
+    min-height: 0;
+    height: auto;
+    max-height: none;
+  }
+
+  .archive--editorial .project-card:not(.is-expanded) .project-card__visual {
+    height: 250px;
+    min-height: 0;
+    padding: 44px 18px 0;
+  }
+
+  .archive--editorial .project-card:not(.is-expanded) .project-card__body {
+    min-height: 235px;
+    height: auto;
+    padding: 22px 20px 18px;
+    overflow: visible;
+  }
+
+  .archive--editorial .project-card:not(.is-expanded) .project-card__actions {
+    flex: 0 0 auto;
+    margin-top: 18px;
+  }
+}
+
+@media (max-width: 420px) {
+  .project-card:not(.is-expanded) .project-card__body h3 {
+    font-size: 32px;
+  }
+
+  .archive--editorial .project-card:not(.is-expanded) {
+    grid-template-rows: 225px auto;
+  }
+
+  .archive--editorial .project-card:not(.is-expanded) .project-card__visual {
+    height: 225px;
+  }
+}

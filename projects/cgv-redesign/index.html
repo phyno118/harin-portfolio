@@ -1,0 +1,1678 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CGV Clone - Premium Cinematic Mode</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Pretendard Font -->
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+    />
+    <!-- FontAwesome for Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Pretendard Variable"', "Pretendard", "sans-serif"],
+            },
+            colors: {
+              brand: {
+                red: "#E50914",
+                dark: "#8D0000",
+                gold: "#F2B84B",
+                light: "#FFD966",
+              },
+              bg: {
+                deep: "#0B0B0D",
+                base: "#000000",
+                card: "#1C1C1F",
+                input: "#222222",
+              },
+              text: {
+                primary: "#FFFFFF",
+                body: "#E5E5E5",
+                sub: "#6A6A6A",
+              },
+              ui: {
+                border: "#333333",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background-color: #0b0b0d;
+        color: #ffffff;
+        overflow-x: hidden;
+        /* 좌측 붉은색 은은한 배경 조명 */
+        background-image: radial-gradient(
+          circle at 10% 30%,
+          rgba(229, 9, 20, 0.08) 0%,
+          transparent 40%
+        );
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+      }
+
+      /* 숨겨진 스크롤바 하지만 스크롤은 가능하게 */
+      .scroll-carousel::-webkit-scrollbar {
+        display: none;
+      }
+      .scroll-carousel {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        cursor: grab;
+      }
+      .scroll-carousel:active {
+        cursor: grabbing;
+      }
+
+      /* 포스터 하단 텍스트용 그라데이션 */
+      .poster-gradient {
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.95) 0%,
+          rgba(0, 0, 0, 0.5) 25%,
+          rgba(0, 0, 0, 0) 50%
+        );
+      }
+      .theater-gradient {
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.9) 0%,
+          rgba(0, 0, 0, 0.4) 40%,
+          rgba(0, 0, 0, 0) 100%
+        );
+      }
+
+      /* 웅장한 커버플로우 무비 카드 효과 */
+      .movie-card {
+        transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        will-change: transform, opacity;
+        transform-origin: center center;
+      }
+      .movie-card.is-active {
+        transform: scale(1.35); /* 가운데 카드를 1.35배 압도적으로 키움 */
+        opacity: 1;
+        z-index: 30;
+        filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.8));
+      }
+      .movie-card:not(.is-active) {
+        transform: scale(0.9);
+        opacity: 0.4;
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body class="antialiased relative text-text-primary">
+    <!-- 유틸리티 바 -->
+    <div
+      class="w-full bg-transparent text-xs text-text-sub py-2.5 border-b border-ui-border/30"
+    >
+      <div class="max-w-[1200px] mx-auto px-4 flex justify-end gap-6">
+        <a
+          href="#"
+          class="hover:text-text-primary transition-colors font-medium"
+          >로그인</a
+        >
+        <a
+          href="#"
+          class="hover:text-text-primary transition-colors font-medium"
+          >회원가입</a
+        >
+        <a
+          href="#"
+          class="hover:text-text-primary transition-colors font-medium"
+          >MY CGV</a
+        >
+        <a
+          href="#"
+          class="hover:text-text-primary transition-colors font-medium"
+          >고객센터</a
+        >
+      </div>
+    </div>
+
+    <!-- 메인 헤더 -->
+    <header
+      class="w-full sticky top-0 bg-bg-base/90 backdrop-blur-md z-50 border-b border-ui-border/30"
+    >
+      <div
+        class="max-w-[1200px] mx-auto px-4 h-[104px] flex items-center justify-between"
+      >
+        <div class="flex items-center gap-12">
+          <!-- 로고 -->
+          <a href="#">
+            <img
+              src="./CGV image/cgv_logo.svg"
+              alt="로고"
+              class="h-12 w-auto drop-shadow-[0_0_15px_rgba(229,9,20,0.4)]"
+            />
+          </a>
+
+          <!-- 네비게이션 -->
+          <nav class="hidden md:flex gap-12 font-bold text-text-body text-lg">
+            <a href="#" class="hover:text-brand-red transition-colors">영화</a>
+            <a href="#" class="hover:text-brand-red transition-colors">극장</a>
+            <a href="#" class="text-brand-red transition-colors relative"
+              >예매
+              <span
+                class="absolute -bottom-[36px] left-0 w-full h-[4px] bg-brand-red"
+              ></span>
+            </a>
+            <a href="#" class="hover:text-brand-red transition-colors"
+              >스토어</a
+            >
+            <a href="#" class="hover:text-brand-red transition-colors"
+              >이벤트</a
+            >
+            <a href="#" class="hover:text-brand-red transition-colors">혜택</a>
+          </nav>
+        </div>
+
+        <div class="flex items-center gap-6 text-2xl text-text-body">
+          <button class="hover:text-text-primary transition-colors">
+            <i class="fa-solid fa-search"></i>
+          </button>
+          <button class="hover:text-text-primary transition-colors">
+            <i class="fa-regular fa-user"></i>
+          </button>
+          <button class="hover:text-text-primary transition-colors">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main
+      class="relative max-w-[1200px] mx-auto px-4 py-12 flex flex-col gap-20 z-10"
+    >
+      <!-- 검색 섹션 -->
+      <section class="w-full">
+        <div
+          class="relative flex items-center bg-bg-card rounded-full p-2.5 border border-ui-border focus-within:border-brand-red transition-colors shadow-lg"
+        >
+          <i class="fa-solid fa-search text-text-sub ml-6 text-xl"></i>
+          <input
+            type="text"
+            placeholder="영화 제목, 상영관, 이벤트, 할인 쿠폰 검색"
+            class="w-full bg-transparent border-none outline-none text-text-primary px-5 text-lg placeholder-text-sub"
+          />
+          <button
+            class="bg-brand-red hover:bg-brand-dark text-white font-bold text-lg py-4 px-14 rounded-full transition-colors flex-shrink-0 shadow-md"
+          >
+            검색
+          </button>
+        </div>
+
+        <div
+          class="flex justify-center gap-4 mt-6 text-base text-text-primary font-medium"
+        >
+          <span
+            class="bg-bg-input px-6 py-2.5 rounded-full cursor-pointer hover:bg-ui-border transition-colors flex items-center gap-2 border border-ui-border/50"
+            ><i class="fa-solid fa-bolt text-brand-red"></i> 파트2</span
+          >
+          <span
+            class="bg-bg-input px-6 py-2.5 rounded-full cursor-pointer hover:bg-ui-border transition-colors border border-ui-border/50"
+            >동반사 할인</span
+          >
+          <span
+            class="bg-bg-input px-6 py-2.5 rounded-full cursor-pointer hover:bg-ui-border transition-colors flex items-center gap-2 border border-ui-border/50"
+            ><i class="fa-solid fa-ticket text-brand-gold"></i> 임영웅
+            콘서트</span
+          >
+          <span
+            class="bg-bg-input px-6 py-2.5 rounded-full cursor-pointer hover:bg-ui-border transition-colors border border-ui-border/50"
+            >수퍼플렉스</span
+          >
+        </div>
+      </section>
+
+      <!-- 웅장한 무비 차트 (Cinematic Movie Chart) -->
+      <section class="relative w-full">
+        <div class="flex justify-between items-end mb-4 px-2">
+          <div>
+            <h2 class="text-4xl font-bold text-text-primary tracking-tight">
+              무비 차트
+            </h2>
+            <p class="text-base text-text-sub mt-3">
+              현재 예매율이 가장 높은 인기 영화
+            </p>
+          </div>
+          <a
+            href="#"
+            class="text-base text-text-sub hover:text-text-primary transition-colors flex items-center gap-1 font-medium mb-1"
+          >
+            전체보기 <i class="fa-solid fa-angle-right"></i>
+          </a>
+        </div>
+
+        <div class="relative group/carousel w-full">
+          <!-- 무비차트 왼쪽 화살표 -->
+          <button
+            onclick="
+              document
+                .getElementById('movie-chart-carousel')
+                .scrollBy({ left: -300, behavior: 'smooth' })
+            "
+            class="absolute left-4 top-[45%] -translate-y-1/2 w-16 h-16 bg-bg-base/80 hover:bg-brand-red backdrop-blur-md rounded-full flex items-center justify-center z-40 border border-white/20 transition-all text-white shadow-[0_10px_30px_rgba(0,0,0,0.8)] hidden md:flex opacity-0 group-hover/carousel:opacity-100 hover:scale-110"
+          >
+            <i class="fa-solid fa-chevron-left text-2xl"></i>
+          </button>
+
+          <!-- 무비차트 리스트 -->
+          <div
+            id="movie-chart-carousel"
+            class="scroll-carousel flex gap-10 overflow-x-auto snap-x snap-mandatory items-center pt-[120px] pb-[160px] px-[calc(50%-160px)] -mt-[60px] -mb-[40px]"
+          >
+            <!-- 1. 왕과 사는 남자 (Rank 1) -->
+            <div
+              class="movie-card is-active w-[320px] flex-shrink-0 snap-center flex flex-col cursor-pointer select-none"
+            >
+              <div
+                class="relative w-full h-[460px] rounded-2xl overflow-hidden bg-bg-card border border-ui-border shadow-xl"
+              >
+                <div
+                  class="absolute top-4 right-4 text-white hover:text-brand-red z-10 transition-colors"
+                >
+                  <i class="fa-regular fa-heart text-3xl drop-shadow-md"></i>
+                </div>
+                <div
+                  class="absolute bottom-[-15px] left-2 text-[150px] font-black italic leading-[0.8] text-white drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)] z-10"
+                >
+                  1
+                </div>
+                <img
+                  src="./CGV image/hero_img.jpg"
+                  alt="왕과 사는 남자"
+                  class="w-full h-full object-cover pointer-events-none"
+                />
+                <div
+                  class="absolute inset-0 poster-gradient z-0 pointer-events-none"
+                ></div>
+                <div class="absolute bottom-4 right-4 flex gap-1 z-10">
+                  <span
+                    class="bg-black/60 text-white text-[9px] px-1.5 py-0.5 rounded font-bold border border-white/20"
+                    >SCREENX</span
+                  >
+                </div>
+              </div>
+              <div
+                class="mt-6 px-2 flex flex-col items-center text-center gap-2"
+              >
+                <h3
+                  class="text-2xl font-bold text-text-primary flex items-center justify-center gap-2"
+                >
+                  왕과 사는 남자
+                  <span
+                    class="text-xs bg-brand-gold/20 border border-brand-gold/50 text-brand-gold px-1.5 py-0.5 rounded-md"
+                    >사극</span
+                  >
+                </h3>
+                <p
+                  class="text-sm text-text-sub flex items-center justify-center gap-3 font-medium"
+                >
+                  <span>예매율 45.2%</span>
+                  <span
+                    class="w-[3px] h-[3px] rounded-full bg-ui-border"
+                  ></span>
+                  <span>누적 1,120만</span>
+                </p>
+                <!-- 빨간색 알약 버튼 (예매하기) -->
+                <button
+                  class="w-full mt-3 py-3 bg-brand-red hover:bg-brand-dark text-white rounded-full text-base font-bold shadow-lg transition-colors"
+                >
+                  예매하기
+                </button>
+              </div>
+            </div>
+
+            <!-- 2. 스즈메의 문단속 (Rank 2) -->
+            <div
+              class="movie-card w-[320px] flex-shrink-0 snap-center flex flex-col cursor-pointer select-none"
+            >
+              <div
+                class="relative w-full h-[460px] rounded-2xl overflow-hidden bg-bg-card border border-ui-border shadow-xl"
+              >
+                <div
+                  class="absolute top-4 right-4 text-white hover:text-brand-red z-10 transition-colors"
+                >
+                  <i class="fa-regular fa-heart text-3xl drop-shadow-md"></i>
+                </div>
+                <div
+                  class="absolute bottom-[-15px] left-2 text-[150px] font-black italic leading-[0.8] text-white drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)] z-10"
+                >
+                  2
+                </div>
+                <img
+                  src="./CGV image/szme_img.jpg"
+                  alt="스즈메의 문단속"
+                  class="w-full h-full object-cover pointer-events-none"
+                />
+                <div
+                  class="absolute inset-0 poster-gradient z-0 pointer-events-none"
+                ></div>
+              </div>
+              <div
+                class="mt-6 px-2 flex flex-col items-center text-center gap-2"
+              >
+                <h3
+                  class="text-2xl font-bold text-text-primary flex items-center justify-center gap-2"
+                >
+                  스즈메의 문단속
+                  <span
+                    class="text-xs bg-brand-gold/20 border border-brand-gold/50 text-brand-gold px-1.5 py-0.5 rounded-md"
+                    >애니</span
+                  >
+                </h3>
+                <p
+                  class="text-sm text-text-sub flex items-center justify-center gap-3 font-medium"
+                >
+                  <span>예매율 21.6%</span>
+                  <span
+                    class="w-[3px] h-[3px] rounded-full bg-ui-border"
+                  ></span>
+                  <span>누적 550만</span>
+                </p>
+                <!-- 빨간색 알약 버튼 (예매하기) -->
+                <button
+                  class="w-full mt-3 py-3 bg-brand-red hover:bg-brand-dark text-white rounded-full text-base font-bold shadow-lg transition-colors"
+                >
+                  예매하기
+                </button>
+              </div>
+            </div>
+
+            <!-- 3. 서울의 봄 (Rank 3) -->
+            <div
+              class="movie-card w-[320px] flex-shrink-0 snap-center flex flex-col cursor-pointer select-none"
+            >
+              <div
+                class="relative w-full h-[460px] rounded-2xl overflow-hidden bg-bg-card border border-ui-border shadow-xl"
+              >
+                <div
+                  class="absolute top-4 right-4 text-white hover:text-brand-red z-10 transition-colors"
+                >
+                  <i class="fa-regular fa-heart text-3xl drop-shadow-md"></i>
+                </div>
+                <div
+                  class="absolute bottom-[-15px] left-2 text-[150px] font-black italic leading-[0.8] text-white drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)] z-10"
+                >
+                  3
+                </div>
+                <img
+                  src="./CGV image/seoulspring_img.jpg"
+                  alt="서울의 봄"
+                  class="w-full h-full object-cover pointer-events-none"
+                />
+                <div
+                  class="absolute inset-0 poster-gradient z-0 pointer-events-none"
+                ></div>
+              </div>
+              <div
+                class="mt-6 px-2 flex flex-col items-center text-center gap-2"
+              >
+                <h3
+                  class="text-2xl font-bold text-text-primary flex items-center justify-center gap-2"
+                >
+                  서울의 봄
+                  <span
+                    class="text-xs bg-brand-gold/20 border border-brand-gold/50 text-brand-gold px-1.5 py-0.5 rounded-md"
+                    >드라마</span
+                  >
+                </h3>
+                <p
+                  class="text-sm text-text-sub flex items-center justify-center gap-3 font-medium"
+                >
+                  <span>예매율 15.1%</span>
+                  <span
+                    class="w-[3px] h-[3px] rounded-full bg-ui-border"
+                  ></span>
+                  <span>누적 1,300만</span>
+                </p>
+                <!-- 빨간색 알약 버튼 (예매하기) -->
+                <button
+                  class="w-full mt-3 py-3 bg-brand-red hover:bg-brand-dark text-white rounded-full text-base font-bold shadow-lg transition-colors"
+                >
+                  예매하기
+                </button>
+              </div>
+            </div>
+
+            <!-- 4. Dune (Rank 4) -->
+            <div
+              class="movie-card w-[320px] flex-shrink-0 snap-center flex flex-col cursor-pointer select-none"
+            >
+              <div
+                class="relative w-full h-[460px] rounded-2xl overflow-hidden bg-bg-card border border-ui-border shadow-xl"
+              >
+                <div
+                  class="absolute top-4 right-4 text-white hover:text-brand-red z-10 transition-colors"
+                >
+                  <i class="fa-regular fa-heart text-3xl drop-shadow-md"></i>
+                </div>
+                <div
+                  class="absolute bottom-[-15px] left-2 text-[150px] font-black italic leading-[0.8] text-white drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)] z-10"
+                >
+                  4
+                </div>
+                <img
+                  src="./CGV image/dune_img.jpg"
+                  alt="Dune"
+                  class="w-full h-full object-cover pointer-events-none"
+                />
+                <div
+                  class="absolute inset-0 poster-gradient z-0 pointer-events-none"
+                ></div>
+                <div class="absolute bottom-4 right-4 flex gap-1 z-10">
+                  <span
+                    class="bg-black/60 text-white text-[9px] px-1.5 py-0.5 rounded font-bold border border-white/20"
+                    >IMAX</span
+                  >
+                </div>
+              </div>
+              <div
+                class="mt-6 px-2 flex flex-col items-center text-center gap-2"
+              >
+                <h3
+                  class="text-2xl font-bold text-text-primary flex items-center justify-center gap-2"
+                >
+                  Dune
+                  <span
+                    class="text-xs bg-brand-gold/20 border border-brand-gold/50 text-brand-gold px-1.5 py-0.5 rounded-md"
+                    >SF</span
+                  >
+                </h3>
+                <p
+                  class="text-sm text-text-sub flex items-center justify-center gap-3 font-medium"
+                >
+                  <span>예매율 9.8%</span>
+                  <span
+                    class="w-[3px] h-[3px] rounded-full bg-ui-border"
+                  ></span>
+                  <span>누적 210만</span>
+                </p>
+                <!-- 빨간색 알약 버튼 (예매하기) -->
+                <button
+                  class="w-full mt-3 py-3 bg-brand-red hover:bg-brand-dark text-white rounded-full text-base font-bold shadow-lg transition-colors"
+                >
+                  예매하기
+                </button>
+              </div>
+            </div>
+
+            <!-- 5. Mission Impossible (Rank 5) -->
+            <div
+              class="movie-card w-[320px] flex-shrink-0 snap-center flex flex-col cursor-pointer select-none"
+            >
+              <div
+                class="relative w-full h-[460px] rounded-2xl overflow-hidden bg-bg-card border border-ui-border shadow-xl"
+              >
+                <div
+                  class="absolute top-4 right-4 text-white hover:text-brand-red z-10 transition-colors"
+                >
+                  <i class="fa-regular fa-heart text-3xl drop-shadow-md"></i>
+                </div>
+                <div
+                  class="absolute bottom-[-15px] left-2 text-[150px] font-black italic leading-[0.8] text-white drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)] z-10"
+                >
+                  5
+                </div>
+                <img
+                  src="./CGV image/impossible_img.jpg"
+                  alt="Mission Impossible"
+                  class="w-full h-full object-cover pointer-events-none"
+                />
+                <div
+                  class="absolute inset-0 poster-gradient z-0 pointer-events-none"
+                ></div>
+              </div>
+              <div
+                class="mt-6 px-2 flex flex-col items-center text-center gap-2"
+              >
+                <h3
+                  class="text-2xl font-bold text-text-primary flex items-center justify-center gap-2"
+                >
+                  Mission Impossible
+                  <span
+                    class="text-xs bg-brand-gold/20 border border-brand-gold/50 text-brand-gold px-1.5 py-0.5 rounded-md"
+                    >액션</span
+                  >
+                </h3>
+                <p
+                  class="text-sm text-text-sub flex items-center justify-center gap-3 font-medium"
+                >
+                  <span>예매율 5.4%</span>
+                  <span
+                    class="w-[3px] h-[3px] rounded-full bg-ui-border"
+                  ></span>
+                  <span>누적 350만</span>
+                </p>
+                <!-- 빨간색 알약 버튼 (예매하기) -->
+                <button
+                  class="w-full mt-3 py-3 bg-brand-red hover:bg-brand-dark text-white rounded-full text-base font-bold shadow-lg transition-colors"
+                >
+                  예매하기
+                </button>
+              </div>
+            </div>
+
+            <!-- 6. 오펜하이머 (Rank 6) -->
+            <div
+              class="movie-card w-[320px] flex-shrink-0 snap-center flex flex-col cursor-pointer select-none"
+            >
+              <div
+                class="relative w-full h-[460px] rounded-2xl overflow-hidden bg-bg-card border border-ui-border shadow-xl"
+              >
+                <div
+                  class="absolute top-4 right-4 text-white hover:text-brand-red z-10 transition-colors"
+                >
+                  <i class="fa-regular fa-heart text-3xl drop-shadow-md"></i>
+                </div>
+                <div
+                  class="absolute bottom-[-15px] left-2 text-[150px] font-black italic leading-[0.8] text-white drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)] z-10"
+                >
+                  6
+                </div>
+                <img
+                  src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=500&auto=format&fit=crop&q=60"
+                  alt="오펜하이머"
+                  class="w-full h-full object-cover pointer-events-none"
+                />
+                <div
+                  class="absolute inset-0 poster-gradient z-0 pointer-events-none"
+                ></div>
+              </div>
+              <div
+                class="mt-6 px-2 flex flex-col items-center text-center gap-2"
+              >
+                <h3
+                  class="text-2xl font-bold text-text-primary flex items-center justify-center gap-2"
+                >
+                  오펜하이머
+                  <span
+                    class="text-xs bg-brand-gold/20 border border-brand-gold/50 text-brand-gold px-1.5 py-0.5 rounded-md"
+                    >정치</span
+                  >
+                </h3>
+                <p
+                  class="text-sm text-text-sub flex items-center justify-center gap-3 font-medium"
+                >
+                  <span>예매율 2.9%</span>
+                  <span
+                    class="w-[3px] h-[3px] rounded-full bg-ui-border"
+                  ></span>
+                  <span>누적 400만</span>
+                </p>
+                <!-- 빨간색 알약 버튼 (예매하기) -->
+                <button
+                  class="w-full mt-3 py-3 bg-brand-red hover:bg-brand-dark text-white rounded-full text-base font-bold shadow-lg transition-colors"
+                >
+                  예매하기
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 무비차트 오른쪽 화살표 -->
+          <button
+            onclick="
+              document
+                .getElementById('movie-chart-carousel')
+                .scrollBy({ left: 300, behavior: 'smooth' })
+            "
+            class="absolute right-4 top-[45%] -translate-y-1/2 w-16 h-16 bg-bg-base/80 hover:bg-brand-red backdrop-blur-md rounded-full flex items-center justify-center z-40 border border-white/20 transition-all duration-300 text-white shadow-[0_10px_30px_rgba(0,0,0,0.8)] hidden md:flex opacity-0 group-hover/carousel:opacity-100 hover:scale-110"
+          >
+            <i class="fa-solid fa-chevron-right text-2xl"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- 예매 바 (Quick Booking Bar) -->
+      <section
+        id="booking-section"
+        class="bg-bg-card rounded-3xl p-6 shadow-2xl border border-ui-border flex flex-col md:flex-row gap-6 items-center z-20 w-full"
+      >
+        <div class="flex-1 w-full flex gap-6">
+          <div class="flex-1 relative">
+            <span
+              class="absolute left-6 top-1/2 -translate-y-1/2 text-text-sub text-base font-bold"
+              >영화</span
+            >
+            <select
+              class="w-full bg-bg-input border border-ui-border/50 text-text-primary rounded-2xl h-[68px] pl-[72px] pr-8 appearance-none focus:outline-none focus:border-brand-red cursor-pointer text-lg font-medium"
+            >
+              <option>영화 선택</option>
+              <option>왕과 사는 남자</option>
+              <option>스즈메의 문단속</option>
+            </select>
+            <i
+              class="fa-solid fa-chevron-down absolute right-6 top-1/2 -translate-y-1/2 text-text-sub text-sm pointer-events-none"
+            ></i>
+          </div>
+          <div class="flex-1 relative">
+            <span
+              class="absolute left-6 top-1/2 -translate-y-1/2 text-text-sub text-base font-bold"
+              >극장</span
+            >
+            <select
+              class="w-full bg-bg-input border border-ui-border/50 text-text-primary rounded-2xl h-[68px] pl-[72px] pr-8 appearance-none focus:outline-none focus:border-brand-red cursor-pointer text-lg font-medium"
+            >
+              <option>극장 선택</option>
+              <option>CGV 용산아이파크몰</option>
+            </select>
+            <i
+              class="fa-solid fa-chevron-down absolute right-6 top-1/2 -translate-y-1/2 text-text-sub text-sm pointer-events-none"
+            ></i>
+          </div>
+          <div class="flex-1 relative">
+            <span
+              class="absolute left-6 top-1/2 -translate-y-1/2 text-text-sub text-base font-bold"
+              >날짜</span
+            >
+            <select
+              class="w-full bg-bg-input border border-ui-border/50 text-text-primary rounded-2xl h-[68px] pl-[72px] pr-8 appearance-none focus:outline-none focus:border-brand-red cursor-pointer text-lg font-medium"
+            >
+              <option>오늘</option>
+              <option>내일</option>
+            </select>
+            <i
+              class="fa-solid fa-chevron-down absolute right-6 top-1/2 -translate-y-1/2 text-text-sub text-sm pointer-events-none"
+            ></i>
+          </div>
+        </div>
+        <!-- 빨간색 알약 버튼 (예매하기) -->
+        <button
+          class="w-full md:w-auto min-w-[180px] bg-brand-red hover:bg-brand-dark text-white font-bold h-[68px] px-10 rounded-full transition-colors flex items-center justify-center gap-2 text-xl shadow-lg"
+        >
+          예매하기 <i class="fa-solid fa-angle-right text-lg"></i>
+        </button>
+      </section>
+
+      <!-- 상영예정작 (Coming Soon) -->
+      <section class="relative w-full">
+        <div class="flex justify-between items-end mb-8">
+          <h2 class="text-4xl font-bold text-text-primary tracking-tight">
+            상영예정작
+          </h2>
+          <a
+            href="#"
+            class="text-base text-text-sub hover:text-text-primary transition-colors flex items-center gap-1 font-medium"
+            >전체보기 <i class="fa-solid fa-angle-right"></i
+          ></a>
+        </div>
+
+        <div class="relative group/soon">
+          <button
+            onclick="
+              document
+                .getElementById('coming-soon-carousel')
+                .scrollBy({ left: -304, behavior: 'smooth' })
+            "
+            class="absolute -left-6 top-[40%] -translate-y-1/2 w-16 h-16 bg-bg-card hover:bg-ui-border rounded-full flex items-center justify-center z-10 border border-ui-border transition-all text-white shadow-lg hidden md:flex opacity-0 group-hover/soon:opacity-100"
+          >
+            <i class="fa-solid fa-chevron-left text-xl"></i>
+          </button>
+
+          <div
+            id="coming-soon-carousel"
+            class="scroll-carousel flex gap-6 overflow-x-auto snap-x pb-6"
+          >
+            <div
+              class="w-[280px] flex-shrink-0 snap-start flex flex-col cursor-pointer group"
+            >
+              <div
+                class="relative w-full h-[400px] rounded-2xl overflow-hidden border border-ui-border shadow-lg"
+              >
+                <div
+                  class="absolute top-4 left-4 bg-white text-black text-sm font-bold px-3 py-1 rounded-md z-10"
+                >
+                  D-5
+                </div>
+                <img
+                  src="./CGV image/joker_img.jpg"
+                  alt="Joker"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 pointer-events-none"
+                />
+                <div
+                  class="absolute inset-0 poster-gradient z-0 pointer-events-none"
+                ></div>
+              </div>
+              <div class="mt-6 flex flex-col items-center">
+                <h3 class="text-2xl font-bold text-text-primary truncate">
+                  Joker
+                </h3>
+                <p class="text-base text-brand-red mt-1.5 font-bold">
+                  개봉 예정
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="w-[280px] flex-shrink-0 snap-start flex flex-col cursor-pointer group"
+            >
+              <div
+                class="relative w-full h-[400px] rounded-2xl overflow-hidden border border-ui-border shadow-lg"
+              >
+                <div
+                  class="absolute top-4 left-4 bg-white text-black text-sm font-bold px-3 py-1 rounded-md z-10"
+                >
+                  D-12
+                </div>
+                <img
+                  src="./CGV image/ironman_img.jpg"
+                  alt="Iron man"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 pointer-events-none"
+                />
+                <div
+                  class="absolute inset-0 poster-gradient z-0 pointer-events-none"
+                ></div>
+              </div>
+              <div class="mt-6 flex flex-col items-center">
+                <h3 class="text-2xl font-bold text-text-primary truncate">
+                  Iron man
+                </h3>
+                <p class="text-base text-brand-red mt-1.5 font-bold">
+                  개봉 예정
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="w-[280px] flex-shrink-0 snap-start flex flex-col cursor-pointer group"
+            >
+              <div
+                class="relative w-full h-[400px] rounded-2xl overflow-hidden border border-ui-border shadow-lg"
+              >
+                <div
+                  class="absolute top-4 left-4 bg-white text-black text-sm font-bold px-3 py-1 rounded-md z-10"
+                >
+                  D-20
+                </div>
+                <img
+                  src="./CGV image/zootopia_img.jpg"
+                  alt="주토피아 2"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 pointer-events-none"
+                />
+                <div
+                  class="absolute inset-0 poster-gradient z-0 pointer-events-none"
+                ></div>
+              </div>
+              <div class="mt-6 flex flex-col items-center">
+                <h3 class="text-2xl font-bold text-text-primary truncate">
+                  주토피아 2
+                </h3>
+                <p class="text-base text-text-sub mt-1.5">개봉 예정</p>
+              </div>
+            </div>
+
+            <div
+              class="w-[280px] flex-shrink-0 snap-start flex flex-col cursor-pointer group"
+            >
+              <div
+                class="relative w-full h-[400px] rounded-2xl overflow-hidden border border-ui-border shadow-lg"
+              >
+                <div
+                  class="absolute top-4 left-4 bg-white text-black text-sm font-bold px-3 py-1 rounded-md z-10"
+                >
+                  D-30
+                </div>
+                <img
+                  src="./CGV image/deadpool_img.jpg"
+                  alt="Deadpool"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 pointer-events-none"
+                />
+                <div
+                  class="absolute inset-0 poster-gradient z-0 pointer-events-none"
+                ></div>
+              </div>
+              <div class="mt-6 flex flex-col items-center">
+                <h3 class="text-2xl font-bold text-text-primary truncate">
+                  Deadpool
+                </h3>
+                <p class="text-base text-text-sub mt-1.5">개봉 예정</p>
+              </div>
+            </div>
+          </div>
+
+          <button
+            onclick="
+              document
+                .getElementById('coming-soon-carousel')
+                .scrollBy({ left: 304, behavior: 'smooth' })
+            "
+            class="absolute -right-6 top-[40%] -translate-y-1/2 w-16 h-16 bg-bg-card hover:bg-ui-border rounded-full flex items-center justify-center z-10 border border-ui-border transition-all text-white shadow-lg hidden md:flex opacity-0 group-hover/soon:opacity-100"
+          >
+            <i class="fa-solid fa-chevron-right text-xl"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- CGV 스토어 -->
+      <section class="relative w-full">
+        <div class="flex justify-between items-end mb-8">
+          <h2 class="text-4xl font-bold text-text-primary tracking-tight">
+            CGV 스토어 상품
+          </h2>
+          <a
+            href="#"
+            class="text-base text-text-sub hover:text-text-primary transition-colors flex items-center gap-1 font-medium"
+            >스토어 더보기 <i class="fa-solid fa-angle-right"></i
+          ></a>
+        </div>
+
+        <div class="relative group/store">
+          <button
+            onclick="
+              document
+                .getElementById('store-carousel')
+                .scrollBy({ left: -304, behavior: 'smooth' })
+            "
+            class="absolute -left-6 top-1/2 -translate-y-1/2 w-16 h-16 bg-bg-card hover:bg-ui-border rounded-full flex items-center justify-center z-20 border border-ui-border transition-all text-white shadow-lg hidden md:flex opacity-0 group-hover/store:opacity-100"
+          >
+            <i class="fa-solid fa-chevron-left text-xl"></i>
+          </button>
+
+          <div
+            id="store-carousel"
+            class="scroll-carousel flex gap-6 overflow-x-auto snap-x pb-6"
+          >
+            <!-- 스토어 카드 -->
+            <div
+              class="w-[280px] flex-shrink-0 snap-start flex flex-col cursor-pointer border border-ui-border rounded-2xl bg-bg-card hover:border-brand-red transition-colors overflow-hidden"
+            >
+              <div
+                class="w-full aspect-square bg-white flex items-center justify-center p-6"
+              >
+                <img
+                  src="./CGV image/combo_img.jpg"
+                  alt="CGV 콤보"
+                  class="w-full h-full object-contain"
+                />
+              </div>
+              <div class="p-6 flex flex-col flex-1">
+                <div>
+                  <h4 class="font-bold text-xl text-text-primary">CGV 콤보</h4>
+                  <p class="text-sm text-text-sub mt-1.5">팝콘 L1 + 탄산 M2</p>
+                </div>
+                <p class="font-bold text-brand-red text-3xl mt-auto pt-4">
+                  12,000<span class="text-lg font-medium text-text-sub ml-1"
+                    >원</span
+                  >
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="w-[280px] flex-shrink-0 snap-start flex flex-col cursor-pointer border border-ui-border rounded-2xl bg-bg-card hover:border-brand-red transition-colors overflow-hidden"
+            >
+              <div
+                class="w-full aspect-square bg-white flex items-center justify-center p-6"
+              >
+                <img
+                  src="./CGV image/birthday_img.jpg"
+                  alt="CGV 생일 콤보"
+                  class="w-full h-full object-contain"
+                />
+              </div>
+              <div class="p-6 flex flex-col flex-1">
+                <div>
+                  <h4 class="font-bold text-xl text-text-primary">
+                    CGV 생일 콤보
+                  </h4>
+                  <p class="text-sm text-text-sub mt-1.5">팝콘 L1 + 탄산 M2</p>
+                </div>
+                <p class="font-bold text-brand-red text-3xl mt-auto pt-4">
+                  12,000<span class="text-lg font-medium text-text-sub ml-1"
+                    >원</span
+                  >
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="w-[280px] flex-shrink-0 snap-start flex flex-col cursor-pointer border border-ui-border rounded-2xl bg-bg-card hover:border-brand-red transition-colors overflow-hidden"
+            >
+              <div
+                class="w-full aspect-square bg-white flex items-center justify-center p-6"
+              >
+                <img
+                  src="./CGV image/zoo_img.jpg"
+                  alt="주토피아 팝콘세트"
+                  class="w-full h-full object-contain"
+                />
+              </div>
+              <div class="p-6 flex flex-col flex-1">
+                <div>
+                  <h4
+                    class="font-bold text-xl text-text-primary flex items-center gap-1.5"
+                  >
+                    <span
+                      class="bg-brand-gold text-bg-base px-2 py-0.5 rounded-[4px] text-xs font-black"
+                      >할인</span
+                    >
+                    주토피아 팝콘세트
+                  </h4>
+                </div>
+                <p class="font-bold text-brand-red text-3xl mt-auto pt-4">
+                  7,000<span class="text-lg font-medium text-text-sub ml-1"
+                    >원</span
+                  >
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="w-[280px] flex-shrink-0 snap-start flex flex-col cursor-pointer border border-ui-border rounded-2xl bg-bg-card hover:border-brand-red transition-colors overflow-hidden"
+            >
+              <div
+                class="w-full aspect-square bg-white flex items-center justify-center p-6"
+              >
+                <img
+                  src="./CGV image/wangsanam_img.jpg"
+                  alt="왕사남 콤보"
+                  class="w-full h-full object-contain"
+                />
+              </div>
+              <div class="p-6 flex flex-col flex-1">
+                <div>
+                  <h4 class="font-bold text-xl text-text-primary">
+                    왕사남 콤보
+                  </h4>
+                  <p class="text-sm text-text-sub mt-1.5 break-keep">
+                    왕사남 콤보 구매 시 스낵 추가가 1천원!
+                  </p>
+                </div>
+                <p class="font-bold text-brand-red text-3xl mt-auto pt-4">
+                  9,500<span class="text-lg font-medium text-text-sub ml-1"
+                    >원</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <button
+            onclick="
+              document
+                .getElementById('store-carousel')
+                .scrollBy({ left: 304, behavior: 'smooth' })
+            "
+            class="absolute -right-6 top-1/2 -translate-y-1/2 w-16 h-16 bg-bg-card hover:bg-ui-border rounded-full flex items-center justify-center z-20 border border-ui-border transition-all text-white shadow-lg hidden md:flex opacity-0 group-hover/store:opacity-100"
+          >
+            <i class="fa-solid fa-chevron-right text-xl"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- TRAILERS & HIGHLIGHTS -->
+      <section class="w-full">
+        <div class="flex justify-between items-end mb-8">
+          <div>
+            <h2 class="text-4xl font-bold text-text-primary tracking-tight">
+              TRAILERS & HIGHLIGHTS
+            </h2>
+            <p class="text-base text-text-sub mt-3">
+              기대되는 개봉작의 최신 예고편과 독점 영상을 만나보세요.
+            </p>
+          </div>
+          <a
+            href="#"
+            class="text-base text-text-sub hover:text-text-primary transition-colors flex items-center gap-1 font-medium mb-1"
+          >
+            더보기 <i class="fa-solid fa-angle-right"></i>
+          </a>
+        </div>
+
+        <!-- 이미지 팽창을 완벽히 방지하는 튼튼한 Grid 컨테이너 구조 -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:h-[480px]">
+          <!-- Main Trailer (Left) -->
+          <div
+            class="lg:col-span-2 relative w-full h-[280px] lg:h-full rounded-3xl overflow-hidden group cursor-pointer bg-bg-card border border-ui-border shadow-xl"
+          >
+            <img
+              src="./CGV image/joker_img.jpg"
+              alt="조커"
+              class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+            <div
+              class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500"
+            ></div>
+
+            <!-- Play Button Overlay -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div
+                class="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/30 group-hover:bg-brand-red group-hover:border-transparent transition-all duration-300 shadow-2xl group-hover:scale-110"
+              >
+                <i
+                  class="fa-solid fa-play text-white text-3xl ml-1.5 drop-shadow-md"
+                ></i>
+              </div>
+            </div>
+
+            <div class="absolute bottom-8 left-8 z-10 pr-8">
+              <span
+                class="bg-brand-red text-white text-xs px-2.5 py-1 rounded-sm font-bold tracking-wide mb-3 inline-block shadow-md"
+                >메인 예고편</span
+              >
+              <h3 class="text-3xl font-bold text-white drop-shadow-lg">
+                Joker: Folie à Deux
+              </h3>
+              <p
+                class="text-white/90 mt-2.5 font-medium drop-shadow-md text-base"
+              >
+                단 하나의 강렬한 마스터피스, 마침내 공개!
+              </p>
+            </div>
+          </div>
+
+          <!-- Sub Trailers (Right) -->
+          <div class="flex flex-col gap-4 w-full h-auto lg:h-full">
+            <!-- Sub 1 -->
+            <div
+              class="flex-1 bg-bg-card rounded-2xl border border-ui-border p-3 flex gap-4 items-center group cursor-pointer hover:border-brand-red transition-colors shadow-lg relative"
+            >
+              <div
+                class="w-[130px] lg:w-[150px] h-[90px] lg:h-full relative rounded-xl overflow-hidden flex-shrink-0 border border-ui-border/50 bg-black"
+              >
+                <img
+                  src="./CGV image/ironman_img.jpg"
+                  alt="아이언맨"
+                  class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div
+                  class="absolute inset-0 bg-black/40 group-hover:bg-black/20 flex items-center justify-center transition-colors"
+                >
+                  <i
+                    class="fa-solid fa-play text-white text-2xl drop-shadow-md group-hover:text-brand-red transition-colors"
+                  ></i>
+                </div>
+              </div>
+              <div
+                class="flex flex-col justify-center py-1 pr-2 min-w-0 flex-1"
+              >
+                <span
+                  class="text-brand-gold text-[11px] font-bold mb-1.5 tracking-wide"
+                  >티저 예고편</span
+                >
+                <h4
+                  class="text-text-primary font-bold text-lg leading-tight mb-1.5 group-hover:text-brand-red transition-colors truncate"
+                >
+                  Iron man : Returns
+                </h4>
+                <p
+                  class="text-text-sub text-xs line-clamp-2 leading-relaxed break-keep"
+                >
+                  마블 유니버스의 새로운 시작을 알리는 압도적 스케일
+                </p>
+              </div>
+            </div>
+
+            <!-- Sub 2 -->
+            <div
+              class="flex-1 bg-bg-card rounded-2xl border border-ui-border p-3 flex gap-4 items-center group cursor-pointer hover:border-brand-red transition-colors shadow-lg relative"
+            >
+              <div
+                class="w-[130px] lg:w-[150px] h-[90px] lg:h-full relative rounded-xl overflow-hidden flex-shrink-0 border border-ui-border/50 bg-black"
+              >
+                <img
+                  src="./CGV image/seoulspring_img.jpg"
+                  alt="서울의 봄"
+                  class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div
+                  class="absolute inset-0 bg-black/40 group-hover:bg-black/20 flex items-center justify-center transition-colors"
+                >
+                  <i
+                    class="fa-solid fa-play text-white text-2xl drop-shadow-md group-hover:text-brand-red transition-colors"
+                  ></i>
+                </div>
+              </div>
+              <div
+                class="flex flex-col justify-center py-1 pr-2 min-w-0 flex-1"
+              >
+                <span
+                  class="text-brand-gold text-[11px] font-bold mb-1.5 tracking-wide"
+                  >제작기 영상</span
+                >
+                <h4
+                  class="text-text-primary font-bold text-lg leading-tight mb-1.5 group-hover:text-brand-red transition-colors truncate"
+                >
+                  서울의 봄
+                </h4>
+                <p
+                  class="text-text-sub text-xs line-clamp-2 leading-relaxed break-keep"
+                >
+                  천만 관객을 돌파한 완벽한 연출과 비하인드 스토리
+                </p>
+              </div>
+            </div>
+
+            <!-- Sub 3 (수정됨: 올바른 주토피아 포스터 적용) -->
+            <div
+              class="flex-1 bg-bg-card rounded-2xl border border-ui-border p-3 flex gap-4 items-center group cursor-pointer hover:border-brand-red transition-colors shadow-lg relative"
+            >
+              <div
+                class="w-[130px] lg:w-[150px] h-[90px] lg:h-full relative rounded-xl overflow-hidden flex-shrink-0 border border-ui-border/50 bg-black"
+              >
+                <img
+                  src="./CGV image/zootopia_img.jpg"
+                  alt="주토피아 2"
+                  class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div
+                  class="absolute inset-0 bg-black/40 group-hover:bg-black/20 flex items-center justify-center transition-colors"
+                >
+                  <i
+                    class="fa-solid fa-play text-white text-2xl drop-shadow-md group-hover:text-brand-red transition-colors"
+                  ></i>
+                </div>
+              </div>
+              <div
+                class="flex flex-col justify-center py-1 pr-2 min-w-0 flex-1"
+              >
+                <span
+                  class="text-brand-gold text-[11px] font-bold mb-1.5 tracking-wide"
+                  >캐릭터 예고편</span
+                >
+                <h4
+                  class="text-text-primary font-bold text-lg leading-tight mb-1.5 group-hover:text-brand-red transition-colors truncate"
+                >
+                  주토피아 2
+                </h4>
+                <p
+                  class="text-text-sub text-xs line-clamp-2 leading-relaxed break-keep"
+                >
+                  더욱 귀엽고 강력해진 닉과 주디의 환상 케미스트리
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Membership -->
+      <section
+        class="bg-bg-card border border-ui-border rounded-3xl p-10 flex flex-col md:flex-row justify-between items-center bg-[url('./CGV%20image/event-3.jpg')] bg-cover bg-center bg-blend-overlay bg-bg-deep/90 shadow-xl"
+      >
+        <div>
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-brand-gold font-black tracking-tighter text-2xl"
+              >CJ ONE</span
+            >
+            <span class="text-text-primary font-bold text-lg">멤버십</span>
+          </div>
+          <h3 class="text-3xl font-bold mb-3 text-text-primary">
+            낮아진 VIP 승급 기준, 더 커진 혜택
+          </h3>
+          <p class="text-base text-text-body mb-8 leading-relaxed">
+            25년에도 CGV에서 영화도 보고 특별한 포인트 혜택을 누리세요.<br />포인트가
+            적립될수록 VIP 등급 혜택이 쑥쑥 늘어납니다.
+          </p>
+          <!-- 흰색 바탕에 진빨강 글씨 알약 버튼 -->
+          <button
+            class="bg-white text-brand-dark font-bold text-sm px-8 py-3.5 rounded-full hover:bg-gray-200 transition-colors shadow-lg"
+          >
+            내 멤버십 등급/혜택 보기
+          </button>
+        </div>
+        <div class="flex gap-6 mt-8 md:mt-0">
+          <div class="flex flex-col items-center gap-3">
+            <div
+              class="w-20 h-20 bg-bg-card border border-brand-gold/30 rounded-3xl flex items-center justify-center text-brand-gold text-3xl shadow-2xl"
+            >
+              <i class="fa-solid fa-crown"></i>
+            </div>
+            <span class="text-sm font-bold text-brand-gold">SVIP</span>
+          </div>
+          <div class="flex flex-col items-center gap-3">
+            <div
+              class="w-20 h-20 bg-bg-card border border-ui-border rounded-3xl flex items-center justify-center text-text-body text-3xl shadow-2xl"
+            >
+              <i class="fa-regular fa-user"></i>
+            </div>
+            <span class="text-sm font-bold text-text-sub">VIP</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- EVENT & BENEFIT -->
+      <section class="w-full">
+        <div class="flex justify-between items-end mb-8">
+          <h2 class="text-4xl font-bold text-text-primary tracking-tight">
+            EVENT & BENEFIT
+          </h2>
+          <a
+            href="#"
+            class="text-base text-text-sub hover:text-text-primary transition-colors flex items-center gap-1 font-medium"
+            >전체보기 <i class="fa-solid fa-angle-right"></i
+          ></a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Card 1 (KT 멤버십) -->
+          <div class="group cursor-pointer">
+            <div
+              class="rounded-2xl overflow-hidden mb-4 relative h-[180px] border border-ui-border shadow-lg"
+            >
+              <div
+                class="absolute top-3 left-3 bg-brand-red text-white text-[11px] px-2.5 py-1 rounded-md font-bold z-10 shadow-md"
+              >
+                제휴할인
+              </div>
+              <img
+                src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?w=800&auto=format&fit=crop&q=80"
+                alt="KT 멤버십"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+            <h4 class="font-bold text-lg mb-1.5 text-text-primary">
+              KT 멤버십 VIP 초이스
+            </h4>
+            <p class="text-sm text-text-sub break-keep">
+              KT 멤버십으로 CGV에서 무료 예매 혜택을 누려보세요.
+            </p>
+          </div>
+          <!-- Card 2 (현대카드) -->
+          <div class="group cursor-pointer">
+            <div
+              class="rounded-2xl overflow-hidden mb-4 relative h-[180px] border border-ui-border shadow-lg"
+            >
+              <div
+                class="absolute top-3 left-3 bg-blue-600/90 text-white text-[11px] px-2.5 py-1 rounded-md font-bold z-10 shadow-md"
+              >
+                포인트
+              </div>
+              <img
+                src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&auto=format&fit=crop&q=80"
+                alt="현대카드"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+            <h4 class="font-bold text-lg mb-1.5 text-text-primary">
+              현대카드 M포인트 100% 사용
+            </h4>
+            <p class="text-sm text-text-sub break-keep">
+              매주 금,토,일요일! M포인트로 영화 전액 결제 혜택
+            </p>
+          </div>
+          <!-- Card 3 (시그니처 팝콘) -->
+          <div class="group cursor-pointer">
+            <div
+              class="rounded-2xl overflow-hidden mb-4 relative h-[180px] border border-ui-border shadow-lg"
+            >
+              <div
+                class="absolute top-3 left-3 bg-brand-gold text-bg-base text-[11px] px-2.5 py-1 rounded-md font-bold z-10 shadow-md"
+              >
+                이벤트
+              </div>
+              <img
+                src="https://images.unsplash.com/photo-1585647347384-2593bc35786b?w=800&auto=format&fit=crop&q=80"
+                alt="시그니처 팝콘"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+            <h4 class="font-bold text-lg mb-1.5 text-text-primary">
+              시그니처 팝콘 런칭 기념 더블 적립
+            </h4>
+            <p class="text-sm text-text-sub break-keep">
+              시그니처 팝콘 구매 시 CJ ONE 포인트 더블 적립 이벤트
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 특별관 (Special Theaters) -->
+      <section class="mb-10 w-full">
+        <div class="text-center mb-10 mt-6">
+          <h2
+            class="text-4xl md:text-5xl font-black tracking-[0.2em] mb-4 text-text-primary"
+          >
+            SPECIAL THEATERS
+          </h2>
+          <p class="text-base text-text-sub font-medium">
+            CGV만의 독자적 기술과 혁신으로 구현한 프리미엄 X Theater 특별 상영관
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 h-[500px]">
+          <!-- 좌측 큰 배너 (4DX) -->
+          <div
+            class="md:col-span-2 relative rounded-2xl overflow-hidden group cursor-pointer border border-ui-border"
+          >
+            <img
+              src="./CGV image/4dx_img.jpg"
+              alt="ULTRA 4DX"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+            <div
+              class="absolute inset-0 theater-gradient z-0 pointer-events-none"
+            ></div>
+            <div class="absolute bottom-10 left-10 z-10 flex flex-col">
+              <h3
+                class="text-6xl font-black text-white italic mb-4 drop-shadow-lg"
+              >
+                ULTRA 4DX
+              </h3>
+              <a href="#" class="text-lg text-brand-red font-bold w-fit"
+                >자세히 보기 ></a
+              >
+            </div>
+          </div>
+
+          <!-- 우측 2단 배너 -->
+          <div class="flex flex-col gap-6">
+            <div
+              class="flex-1 relative rounded-2xl overflow-hidden group cursor-pointer bg-bg-card border border-ui-border"
+            >
+              <img
+                src="./CGV image/imax_img.jpg"
+                alt="IMAX"
+                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div
+                class="absolute inset-0 theater-gradient z-10 pointer-events-none"
+              ></div>
+              <div
+                class="absolute inset-0 p-8 flex flex-col justify-between z-20"
+              >
+                <h3
+                  class="text-blue-500 font-black text-4xl tracking-tighter drop-shadow-md"
+                >
+                  IMAX
+                </h3>
+                <div>
+                  <p class="font-bold text-xl text-white drop-shadow-md">
+                    초대형 스크린의 압도감
+                  </p>
+                  <p
+                    class="text-sm text-white/80 mt-2.5 leading-relaxed drop-shadow-md"
+                  >
+                    맞춤형 설계의 초대형 스크린과 웅장한 사운드
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="flex-1 relative rounded-2xl overflow-hidden group cursor-pointer bg-bg-card border border-ui-border"
+            >
+              <img
+                src="./CGV image/screenx_img.jpg"
+                alt="ScreenX"
+                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div
+                class="absolute inset-0 theater-gradient z-10 pointer-events-none"
+              ></div>
+              <div
+                class="absolute inset-0 p-8 flex flex-col justify-between z-20"
+              >
+                <h3
+                  class="text-white font-black text-4xl tracking-tighter drop-shadow-md"
+                >
+                  ScreenX
+                </h3>
+                <div>
+                  <p class="font-bold text-xl text-white drop-shadow-md">
+                    세계 최초 다면 스크린
+                  </p>
+                  <p
+                    class="text-sm text-white/80 mt-2.5 leading-relaxed drop-shadow-md"
+                  >
+                    정면을 넘어 양옆 벽면까지, 세계를 확장하는 극장
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 푸터 -->
+    <footer
+      class="bg-bg-base border-t border-ui-border py-16 text-sm text-text-sub relative z-10"
+    >
+      <div class="max-w-[1200px] mx-auto px-4">
+        <div class="flex gap-6 mb-8 text-base text-text-body">
+          <a
+            href="#"
+            class="hover:text-white transition-colors font-bold text-brand-red"
+            >회사소개</a
+          >
+          <a href="#" class="hover:text-white transition-colors font-bold"
+            >개인정보처리방침</a
+          >
+          <a href="#" class="hover:text-white transition-colors font-medium"
+            >이용약관</a
+          >
+        </div>
+        <div class="space-y-3 text-sm leading-relaxed text-text-sub">
+          <p>
+            (00000) 서울특별시 코딩구 포트폴리오동 123-45 (프론트엔드빌딩 6층)
+          </p>
+          <p>
+            대표이사: 엄하린 | 사업자등록번호: 000-00-00000 |
+            통신판매업신고번호: 2026-포트폴리오-0000
+          </p>
+          <p>
+            개인정보보호 책임자: 엄하린 | 대표이메일: harin_eom@portfolio.com
+          </p>
+          <p class="mt-8 text-sm text-ui-border">
+            본 사이트는 개인 포트폴리오 및 스터디 목적으로 제작된 클론 코딩
+            사이트이며, 실제 상업적인 용도로 운영되지 않습니다.<br />
+            © HARIN EOM. All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- 오른쪽 플로팅 메뉴 (우측에 중앙 축이 맞도록 여백 미세 조정) -->
+    <div
+      id="floating-menu"
+      class="fixed right-[32px] top-1/2 -translate-y-1/2 flex flex-col gap-3 z-[60] hidden lg:flex"
+    >
+      <button
+        class="w-14 h-14 bg-white border border-gray-200 rounded-full shadow-[0_4px_15px_rgba(0,0,0,0.5)] flex items-center justify-center text-gray-800 hover:bg-gray-100 hover:scale-110 transition-all duration-300 relative group"
+      >
+        <i class="fa-solid fa-ticket text-xl"></i>
+        <span
+          class="absolute right-full mr-4 bg-white border border-gray-200 text-black text-[13px] font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 whitespace-nowrap transition-opacity pointer-events-none shadow-lg"
+          >빠른 예매</span
+        >
+      </button>
+      <button
+        class="w-14 h-14 bg-white border border-gray-200 rounded-full shadow-[0_4px_15px_rgba(0,0,0,0.5)] flex items-center justify-center text-gray-800 hover:bg-gray-100 hover:scale-110 transition-all duration-300 relative group"
+      >
+        <img
+          src="./CGV image/papconi_img.png"
+          alt="파코니"
+          class="w-8 h-8 object-contain group-hover:scale-110 transition-transform"
+        />
+        <span
+          class="absolute right-full mr-4 bg-white border border-gray-200 text-black text-[13px] font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 whitespace-nowrap transition-opacity pointer-events-none shadow-lg"
+          >매점 스토어</span
+        >
+      </button>
+      <button
+        class="w-14 h-14 bg-white border border-gray-200 rounded-full shadow-[0_4px_15px_rgba(0,0,0,0.5)] flex items-center justify-center text-brand-red hover:bg-gray-100 hover:scale-110 transition-all duration-300 relative group"
+      >
+        <i class="fa-solid fa-gift text-xl"></i>
+        <span
+          class="absolute right-full mr-4 bg-white border border-gray-200 text-black text-[13px] font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 whitespace-nowrap transition-opacity pointer-events-none shadow-lg"
+          >이벤트</span
+        >
+      </button>
+      <button
+        class="w-14 h-14 bg-white border border-gray-200 rounded-full shadow-[0_4px_15px_rgba(0,0,0,0.5)] flex items-center justify-center text-gray-800 hover:bg-gray-100 hover:scale-110 transition-all duration-300 relative group"
+      >
+        <i class="fa-solid fa-headset text-xl"></i>
+        <span
+          class="absolute right-full mr-4 bg-white border border-gray-200 text-black text-[13px] font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 whitespace-nowrap transition-opacity pointer-events-none shadow-lg"
+          >고객센터</span
+        >
+      </button>
+    </div>
+
+    <!-- 스크롤 시 나타나는 예매 플로팅 버튼 (위치 상향 조정 및 하얀색 테두리 추가) -->
+    <button
+      id="fab-booking"
+      class="fixed right-6 bottom-[140px] w-[72px] h-[72px] bg-brand-red rounded-full shadow-[0_0_20px_rgba(229,9,20,0.8)] flex flex-col items-center justify-center text-white z-[60] transition-all duration-300 opacity-0 pointer-events-none translate-y-4 hover:scale-105 border-[3px] border-white"
+    >
+      <i class="fa-solid fa-ticket text-[22px] mb-0.5"></i>
+      <span class="text-[13px] font-extrabold tracking-tight">예매</span>
+    </button>
+
+    <!-- 우측 하단 QR 앱 설치 -->
+    <div
+      id="qr-widget"
+      class="fixed right-6 bottom-8 bg-white text-black py-4 px-5 rounded-2xl shadow-2xl flex items-center gap-5 z-[60] hidden lg:flex border border-gray-200"
+    >
+      <div>
+        <p class="font-bold text-[14px] leading-snug mb-1">
+          QR코드 찍고<br />CGV 앱에서 자세히 보기
+        </p>
+        <p class="text-[11px] text-gray-500 font-medium">
+          디지털/앱 스탬프투어
+        </p>
+      </div>
+      <div
+        class="w-14 h-14 bg-gray-100/80 rounded-xl flex items-center justify-center border border-gray-200"
+      >
+        <i class="fa-solid fa-qrcode text-3xl text-gray-800"></i>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // 1. 무비차트 커버플로우(Coverflow) 웅장한 효과 스크립트
+        const movieCarousel = document.getElementById("movie-chart-carousel");
+        if (movieCarousel) {
+          const cards = movieCarousel.querySelectorAll(".movie-card");
+
+          const updateCarousel = () => {
+            const containerCenter =
+              movieCarousel.getBoundingClientRect().left +
+              movieCarousel.offsetWidth / 2;
+            let closestCard = null;
+            let minDistance = Infinity;
+
+            cards.forEach((card) => {
+              const cardCenter =
+                card.getBoundingClientRect().left + card.offsetWidth / 2;
+              const distance = Math.abs(containerCenter - cardCenter);
+              if (distance < minDistance) {
+                minDistance = distance;
+                closestCard = card;
+              }
+            });
+
+            cards.forEach((card) => {
+              if (card === closestCard) {
+                card.classList.add("is-active");
+              } else {
+                card.classList.remove("is-active");
+              }
+            });
+          };
+
+          movieCarousel.addEventListener("scroll", updateCarousel);
+          window.addEventListener("resize", updateCarousel);
+
+          // 처음 로드될 때 1위 영화가 바로 센터로 오도록 스크롤 이동
+          setTimeout(() => {
+            if (cards.length > 0) {
+              cards[0].scrollIntoView({
+                behavior: "smooth",
+                inline: "center",
+                block: "nearest",
+              });
+            }
+            updateCarousel();
+          }, 300);
+        }
+
+        // 2. 예매 플로팅 버튼 활성화
+        const bookingSection = document.getElementById("booking-section");
+        const fabBooking = document.getElementById("fab-booking");
+
+        if (bookingSection && fabBooking) {
+          window.addEventListener("scroll", () => {
+            const rect = bookingSection.getBoundingClientRect();
+            const isPastBooking = rect.bottom < 0;
+
+            if (isPastBooking) {
+              fabBooking.classList.remove(
+                "opacity-0",
+                "pointer-events-none",
+                "translate-y-4",
+              );
+              fabBooking.classList.add(
+                "opacity-100",
+                "pointer-events-auto",
+                "translate-y-0",
+              );
+            } else {
+              fabBooking.classList.add(
+                "opacity-0",
+                "pointer-events-none",
+                "translate-y-4",
+              );
+              fabBooking.classList.remove(
+                "opacity-100",
+                "pointer-events-auto",
+                "translate-y-0",
+              );
+            }
+          });
+        }
+
+        // 3. 가로 스크롤 (Drag to scroll)
+        const carousels = document.querySelectorAll(".scroll-carousel");
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        carousels.forEach((slider) => {
+          slider.addEventListener("mousedown", (e) => {
+            isDown = true;
+            slider.classList.add("cursor-grabbing");
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+          });
+
+          slider.addEventListener("mouseleave", () => {
+            isDown = false;
+            slider.classList.remove("cursor-grabbing");
+          });
+
+          slider.addEventListener("mouseup", () => {
+            isDown = false;
+            slider.classList.remove("cursor-grabbing");
+          });
+
+          slider.addEventListener("mousemove", (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 1.5;
+            slider.scrollLeft = scrollLeft - walk;
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

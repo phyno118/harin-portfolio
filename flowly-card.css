@@ -15,7 +15,7 @@
 }
 
 .archive .todo .work-pill__visual {
-  background: #f4f2ff url("assets/flowly-dashboard-card.png") center / 100% auto no-repeat;
+  background: #f4f2ff url("assets/flowly-dashboard-card-hd.png") center / 100% auto no-repeat;
 }
 
 .archive .todo .work-pill__visual::before,
@@ -25,5 +25,5 @@
 }
 
 .project-preview[data-project="todo"] .project-preview__art {
-  background: #f4f2ff url("assets/flowly-dashboard-card.png") center / cover no-repeat;
+  background: #f4f2ff url("assets/flowly-dashboard-card-hd.png") center / cover no-repeat;
 }

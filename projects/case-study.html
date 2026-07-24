@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="하린 UI/UX 포트폴리오 프로젝트 케이스 스터디" />
+  <meta name="theme-color" content="#f4f0e7" />
+  <title>Case Study — HARIN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="case-study.css?v=cursor-2" />
+  <link rel="stylesheet" href="../cursor.css?v=1" />
+</head>
+<body>
+  <div class="case-progress" aria-hidden="true"><i></i></div>
+  <header class="case-header">
+    <a class="case-brand" href="../index.html#archive">H<span>·</span></a>
+    <nav aria-label="케이스 스터디 목차"><a href="#overview">Overview</a><a href="#problem">Problem</a><a href="#design">Design</a><a href="#motion">Motion</a><a href="#result">Result</a></nav>
+    <a class="case-back" href="../index.html#archive">Portfolio <span>↙</span></a>
+  </header>
+
+  <main>
+    <section class="case-hero">
+      <div class="case-hero__copy">
+        <p class="case-kicker" data-field="label"></p>
+        <h1 data-field="title"></h1>
+        <p class="case-summary" data-field="summary"></p>
+        <div class="case-actions"><a class="case-primary" data-field="live" target="_blank" rel="noopener">View Project <span>↗</span></a><a href="#overview">Read Story <span>↓</span></a></div>
+      </div>
+      <dl class="case-meta" aria-label="프로젝트 정보">
+        <div><dt>ROLE</dt><dd data-field="role"></dd></div>
+        <div><dt>DURATION</dt><dd data-field="duration"></dd></div>
+        <div><dt>CONTRIBUTION</dt><dd data-field="contribution"></dd></div>
+        <div><dt>TOOLS</dt><dd data-field="tools"></dd></div>
+      </dl>
+      <div class="case-hero__media" data-field="media"></div>
+    </section>
+
+    <aside class="case-index" aria-label="현재 섹션"><span>01</span><p>OVERVIEW</p><i></i></aside>
+
+    <section class="case-section case-overview" id="overview" data-section="01" data-label="OVERVIEW">
+      <div class="case-heading"><span>01</span><div><p>OVERVIEW</p><h2 data-field="overviewTitle"></h2></div></div>
+      <div class="case-overview__grid"><p class="case-lead" data-field="overviewLead"></p><div class="case-copy" data-field="overviewCopy"></div></div>
+    </section>
+
+    <section class="case-section case-problem" id="problem" data-section="02" data-label="PROBLEM">
+      <div class="case-heading"><span>02</span><div><p>PROBLEM</p><h2 data-field="problemTitle"></h2></div></div>
+      <div class="case-list" data-field="problems"></div>
+    </section>
+
+    <section class="case-section case-design" id="design" data-section="03" data-label="DESIGN">
+      <div class="case-heading"><span>03</span><div><p>DESIGN</p><h2 data-field="designTitle"></h2></div></div>
+      <div class="design-decisions" data-field="designs"></div>
+      <div class="design-system" aria-label="디자인 시스템 미리보기"><div class="design-system__color"><i></i><i></i><i></i><i></i></div><div class="design-system__type"><span>가나다</span><strong>Aa</strong><small>Clear hierarchy<br />with a distinct mood.</small></div></div>
+    </section>
+
+    <section class="case-section case-motion" id="motion" data-section="04" data-label="MOTION">
+      <div class="case-heading"><span>04</span><div><p>MOTION</p><h2>움직임에도<br /><em>분명한 이유</em>를 담았습니다.</h2></div></div>
+      <div class="motion-grid" data-field="motions"></div>
+    </section>
+
+    <section class="case-section case-result" id="result" data-section="05" data-label="RESULT">
+      <div class="case-heading"><span>05</span><div><p>RESULT</p><h2 data-field="resultTitle"></h2></div></div>
+      <div class="result-grid"><p data-field="resultLead"></p><div data-field="results"></div></div>
+      <a class="next-project" href="#"><small>NEXT PROJECT</small><span></span><b>↗</b></a>
+    </section>
+  </main>
+
+  <footer><span>HARIN © 2026</span><a href="../index.html#archive">BACK TO PORTFOLIO ↑</a></footer>
+  <script src="case-study.js?v=lumirin-pages-2"></script>
+  <script src="../cursor.js?v=1"></script>
+</body>
+</html>
