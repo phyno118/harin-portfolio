@@ -6,6 +6,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const primaryButton = document.querySelector('.primary-button');
   let currentFilter = '오늘';
 
+  const modalStyles = document.createElement('style');
+  modalStyles.textContent = `
+    .flowly-modal{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:20px;background:rgba(24,24,31,.42);backdrop-filter:blur(4px)}
+    .flowly-modal[hidden]{display:none}
+    .flowly-modal__panel{width:min(440px,100%);padding:28px;border:1px solid #e7e5ef;border-radius:18px;background:#fff;box-shadow:0 24px 80px rgba(32,28,60,.22)}
+    .flowly-modal__panel h2{margin:0;color:#24242a;font-size:22px}
+    .flowly-modal__panel p{margin:8px 0 20px;color:#8d8b98;font-size:14px}
+    .flowly-modal__panel input{box-sizing:border-box;width:100%;height:50px;padding:0 14px;border:1px solid #dcd9e9;border-radius:10px;outline:0;color:#24242a;font:inherit}
+    .flowly-modal__panel input:focus{border-color:#6c5ce7;box-shadow:0 0 0 3px rgba(108,92,231,.12)}
+    .flowly-modal__actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}
+    .flowly-modal__actions button{min-width:92px;height:42px;padding:0 16px;border-radius:9px;font-size:14px;font-weight:700}
+    .flowly-modal__cancel{color:#666370;background:#f3f2f7}
+    .flowly-modal__submit{color:#fff;background:#6c5ce7}
+  `;
+  document.head.appendChild(modalStyles);
+
   const showToast = (message) => {
     let toast = document.querySelector('.flowly-toast');
     if (!toast) {
@@ -109,6 +125,52 @@ document.addEventListener('DOMContentLoaded', () => {
     showToast('새 할 일을 추가했습니다.');
   };
 
+  const modal = document.createElement('div');
+  modal.className = 'flowly-modal';
+  modal.hidden = true;
+  modal.innerHTML = `
+    <form class="flowly-modal__panel" role="dialog" aria-modal="true" aria-labelledby="flowly-modal-title">
+      <h2 id="flowly-modal-title">새 할 일 추가</h2>
+      <p>오늘 처리할 업무를 입력해 주세요.</p>
+      <input type="text" maxlength="80" placeholder="할 일 제목" aria-label="할 일 제목" />
+      <div class="flowly-modal__actions">
+        <button class="flowly-modal__cancel" type="button">취소</button>
+        <button class="flowly-modal__submit" type="submit">추가하기</button>
+      </div>
+    </form>
+  `;
+  document.body.appendChild(modal);
+  const modalInput = modal.querySelector('input');
+
+  const closeModal = () => {
+    modal.hidden = true;
+    primaryButton?.focus();
+  };
+
+  const openModal = () => {
+    modal.hidden = false;
+    modalInput.value = '';
+    window.setTimeout(() => modalInput.focus(), 0);
+  };
+
+  modal.querySelector('form').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const title = modalInput.value.trim();
+    if (!title) {
+      modalInput.focus();
+      return;
+    }
+    createTask(title);
+    closeModal();
+  });
+  modal.querySelector('.flowly-modal__cancel').addEventListener('click', closeModal);
+  modal.addEventListener('click', (event) => {
+    if (event.target === modal) closeModal();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !modal.hidden) closeModal();
+  });
+
   form?.addEventListener('submit', (event) => {
     event.preventDefault();
     const title = input?.value.trim();
@@ -120,10 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
     input.value = '';
   });
 
-  primaryButton?.addEventListener('click', () => {
-    input?.focus();
-    input?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  });
+  primaryButton?.addEventListener('click', openModal);
 
   tabs.forEach((tab) => {
     tab.addEventListener('click', () => {
