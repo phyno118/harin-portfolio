@@ -8,13 +8,22 @@
   const cursorRing = document.querySelector(".custom-cursor-ring");
   const cursorDot = document.querySelector(".custom-cursor-dot");
 
+  let pageReadyTimer = null;
   const showPage = () => {
-    window.requestAnimationFrame(() => document.body.classList.add("is-ready"));
+    window.clearTimeout(pageReadyTimer);
+    document.body.classList.remove("is-ready");
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        pageReadyTimer = window.setTimeout(() => {
+          document.body.classList.add("is-ready");
+        }, reducedMotion ? 0 : 160);
+      });
+    });
   };
   showPage();
-  window.addEventListener("pageshow", () => {
+  window.addEventListener("pageshow", (event) => {
     document.body.classList.remove("is-leaving");
-    showPage();
+    if (event.persisted) showPage();
   });
 
   if (!coarsePointer && !reducedMotion && cursorRing && cursorDot) {
