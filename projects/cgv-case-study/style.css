@@ -1,0 +1,96 @@
+@charset "UTF-8";
+
+/* Gmarket Sans 웹 폰트 로드 */
+@font-face {
+    font-family: 'GmarketSans';
+    font-weight: 300;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff') format('woff');
+}
+@font-face {
+    font-family: 'GmarketSans';
+    font-weight: 500;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+}
+@font-face {
+    font-family: 'GmarketSans';
+    font-weight: 700;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+}
+
+/* 기본 바디 설정 */
+body {
+    background-color: #08080A;
+    color: #f8f8f8;
+    letter-spacing: -0.03em;
+    word-break: keep-all;
+}
+
+/* 글래스 모피즘 효과 */
+.glass-panel {
+    background-color: #16161A;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.glass-panel:hover {
+    border-color: rgba(229, 9, 20, 0.3);
+    background-color: #1A1A1E;
+}
+
+/* 🔥 피드백 반영: '스윽!' 하고 빠릿하게 올라오는 애니메이션 */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(40px);
+    /* 딜레이 클래스와 충돌하지 않도록 개별 속성으로 분리 */
+    transition-property: opacity, transform;
+    transition-duration: 0.7s; 
+    /* 처음엔 빠르고 끝에서 부드럽게 감속하는 쫀득한 타이밍 */
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+}
+
+.fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 🔥 피드백 반영: 순서대로 '슉, 슉' 등장하게 만드는 딜레이 */
+.delay-100 { transition-delay: 0.1s; }
+.delay-200 { transition-delay: 0.2s; }
+.delay-300 { transition-delay: 0.3s; }
+.delay-400 { transition-delay: 0.4s; }
+.delay-500 { transition-delay: 0.5s; }
+.delay-600 { transition-delay: 0.6s; }
+
+.aura-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* 무한 롤링 텍스트 배너 */
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+    display: flex;
+    width: 200%;
+    animation: marquee 25s linear infinite;
+}
+
+/* 스크롤바 커스텀 */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #08080A; }
+::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #E50914; }
+
+h1, h2, h3, h4, h5 { letter-spacing: -0.04em; }
+
+/* iframe 부드러운 전환 */
+iframe { transition: all 0.3s ease; }

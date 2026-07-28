@@ -1,296 +1,279 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="AI와 코드, 모션을 연결하는 UI/UX 디자이너 하린의 포트폴리오" />
-  <meta name="theme-color" content="#f4f0e7" />
-  <title>HARIN — AI-driven UI/UX Designer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="flowly-card.css?v=2" />
-  <link rel="stylesheet" href="redesign.css?v=full-image-cards-13" />
-  <link rel="stylesheet" href="archive-readability.css?v=4" />
-  <link rel="stylesheet" href="concept-refresh.css?v=3" />
-  <link rel="stylesheet" href="lumirin-detail.css?v=2" />
-  <link rel="stylesheet" href="cgv-detail.css?v=4" />
-  <link rel="stylesheet" href="flowly-detail.css?v=2" />
-  <link rel="stylesheet" href="project-card-fixes.css?v=4" />
-  <link rel="stylesheet" href="intro-screen.css?v=3" />
-  <link rel="stylesheet" href="cursor.css?v=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="문제를 구조화하고 작동하는 경험으로 설계하는 UI/UX 디자이너 엄하린의 포트폴리오">
+  <title>엄하린 — UI/UX 디자이너</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
-<body class="intro-active">
-  <div class="intro" aria-hidden="true">
-    <span>PORTFOLIO</span>
-    <i></i>
-    <b>2026</b>
-  </div>
-  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+<body>
+  <a class="skip-link" href="#main">본문으로 바로가기</a>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
 
-  <header class="site-header">
-    <a class="brand magnetic" href="#top" aria-label="처음으로">H<span>·</span></a>
-    <nav aria-label="주요 메뉴">
-      <a href="#archive">Work</a>
-      <a href="#profile">About</a>
-      <a href="#workflow">Process</a>
-      <a href="#ai-workflow">AI</a>
+  <header class="site-header" data-header>
+    <a class="wordmark" href="#cover" aria-label="처음으로">HARIN<span>®</span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span>메뉴</span><i aria-hidden="true"></i>
+    </button>
+    <nav id="site-nav" class="site-nav" aria-label="주요 메뉴">
+      <a href="#profile">프로필</a>
+      <a href="#project-index">프로젝트</a>
+      <a href="#process">작업 과정</a>
+      <a href="#contact">마무리</a>
     </nav>
-    <a class="talk magnetic" href="mailto:hello@harin.design">Let’s talk <span>↗</span></a>
-    <button class="menu" type="button" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><span class="sr-only">메뉴 열기</span></button>
-    <div id="mobile-nav" class="mobile-nav">
-      <a href="#archive">Work</a><a href="#profile">About</a><a href="#workflow">Process</a><a href="#ai-workflow">AI Workflow</a><a href="mailto:hello@harin.design">Contact ↗</a>
-    </div>
   </header>
 
-  <main id="top">
-    <section class="hero hero--signature">
-      <div class="hero__meta reveal">
-        <span>AI-NATIVE UI/UX DESIGNER</span>
-        <span>BASED IN DAEJEON</span>
-        <span>AVAILABLE FOR WORK · <i></i></span>
+  <main id="main">
+    <section class="slide cover" id="cover" data-section="01" aria-labelledby="cover-title">
+      <div class="slide-meta">
+        <span>2026 포트폴리오</span>
+        <span>대전 기반</span>
       </div>
-      <div class="hero-signature__grid">
-        <div class="hero-signature__copy">
-          <p class="hero-signature__kicker reveal">DESIGN × AI × CODE × MOTION</p>
-          <h1 class="hero-signature__title" aria-label="복잡함을 구조로, 아이디어를 AI로, 화면을 움직임으로.">
-            <span class="reveal">복잡함을 <em>구조로,</em></span>
-            <span class="reveal">아이디어를 <em>AI로,</em></span>
-            <span class="reveal">화면을 <em>움직임으로.</em></span>
-          </h1>
-          <div class="hero-signature__bottom reveal">
-            <p>사용자의 문제를 명확한 흐름으로 바꾸고,<br />AI와 코드로 빠르게 검증해 살아 있는 경험으로 완성합니다.</p>
-            <div class="hero-signature__actions">
-              <a href="#archive">프로젝트 보기 <span>↘</span></a>
-              <a href="#workflow">작업 방식 보기 <span>↓</span></a>
-            </div>
-          </div>
-        </div>
+      <div class="cover-copy reveal">
+        <p class="eyebrow">엄하린 · UI/UX 디자이너</p>
+        <h1 id="cover-title">안녕하세요.<br><span>경험의 흐름을</span><br><span>설계하고 구현하는</span><br><em>엄하린입니다.</em></h1>
+        <p>사용자의 문제를 구조화해 UI와 인터랙션으로 구현합니다.</p>
+      </div>
+      <figure class="cover-visual cover-profile reveal delay-1">
+        <img src="assets/harin.jpg" alt="UI/UX 디자이너 엄하린 프로필 사진" fetchpriority="high" data-parallax="0.018">
+        <figcaption><span>엄하린</span><span>UI/UX 디자이너</span></figcaption>
+      </figure>
+      <p class="scroll-note" aria-hidden="true">프로젝트 보기 <span>↓</span></p>
+    </section>
 
-        <div class="hero-signature__visual reveal">
-          <div class="signature-portrait">
-            <img src="assets/harin.jpg" alt="UI/UX 디자이너 하린 프로필 사진" />
-          </div>
+    <section class="slide profile" id="profile" data-section="02" aria-labelledby="profile-title">
+      <div class="section-heading reveal">
+        <p class="eyebrow">02 · 프로필</p>
+        <h2 id="profile-title">아이디어를<br>작동하는 경험으로.</h2>
+      </div>
+      <div class="profile-grid">
+        <div class="profile-statement reveal">
+          <p class="lead">보기 좋은 화면보다, 사용자가 망설이지 않는 화면을 먼저 생각합니다.</p>
         </div>
+        <dl class="profile-list reveal delay-1">
+          <div><dt>프로필</dt><dd>엄하린 · Eom Harin<br>UI/UX 디자이너</dd></div>
+          <div><dt>활동 지역</dt><dd>대전</dd></div>
+          <div><dt>역량</dt><dd>UX 리서치 · 정보 구조 · UI 디자인 · 인터랙션 · 반응형 웹</dd></div>
+          <div><dt>도구</dt><dd>Figma · HTML · CSS · JavaScript · React</dd></div>
+        </dl>
       </div>
     </section>
 
-    <section class="profile section about-signature" id="profile">
-      <div class="section-label reveal"><span>02</span><p>ABOUT ME</p></div>
-      <div class="about-signature__head reveal">
-        <p>한 문장으로 소개하면</p>
-        <h2>네 개의 감각으로<br /><em>하나의 경험</em>을 만듭니다.</h2>
+    <section class="slide project-index" id="project-index" data-section="03" aria-labelledby="index-title">
+      <div class="section-heading reveal">
+        <p class="eyebrow">03 · 선정 프로젝트</p>
+        <h2 id="index-title">프로젝트 목록</h2>
       </div>
-      <div class="about-bento">
-        <article class="about-keyword reveal">
-          <span>01</span><small>STRUCTURE</small>
-          <h3>정리하는 힘</h3>
-          <p>흩어진 요구사항을 사용자 흐름과 정보 구조로 명확하게 정리합니다.</p>
-        </article>
-        <article class="about-keyword about-keyword--accent reveal">
-          <span>02</span><small>AI COLLABORATION</small>
-          <h3>확장하는 속도</h3>
-          <p>AI로 탐색 범위를 넓히고 여러 방향을 빠르게 비교·검증합니다.</p>
-        </article>
-        <article class="about-keyword reveal">
-          <span>03</span><small>INTERACTION</small>
-          <h3>움직임의 이유</h3>
-          <p>장식이 아닌 피드백과 맥락을 전달하는 모션을 설계합니다.</p>
-        </article>
-        <article class="about-keyword about-keyword--dark reveal">
-          <span>04</span><small>BUILD & SHIP</small>
-          <h3>끝까지 만드는 태도</h3>
-          <p>HTML · CSS · JavaScript로 구현하고 반응형 QA와 배포까지 연결합니다.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="workflow section" id="workflow">
-      <div class="section-label reveal"><span>03</span><p>HOW I WORK</p></div>
-      <div class="workflow__head reveal">
-        <h2>디자인에서 배포까지,<br /><em>끊기지 않는 하나의 흐름.</em></h2>
-        <p>생각을 화면에 머물게 두지 않습니다. 직접 만들고 움직이며 실제 환경에서 확인합니다.</p>
-      </div>
-      <div class="workflow-track" role="list">
-        <article class="workflow-step reveal" role="listitem" data-step="design">
-          <span>01</span><div class="workflow-step__icon" aria-hidden="true">◌</div>
-          <small>DESIGN</small><h3>문제와 흐름을 설계</h3><p>Research · IA · User Flow</p><b>질문을 구조로</b>
-        </article>
-        <article class="workflow-step reveal" role="listitem" data-step="ai">
-          <span>02</span><div class="workflow-step__icon" aria-hidden="true">✦</div>
-          <small>AI</small><h3>탐색 범위를 확장</h3><p>Prompt · Compare · Validate</p><b>가능성을 선택지로</b>
-        </article>
-        <article class="workflow-step reveal" role="listitem" data-step="code">
-          <span>03</span><div class="workflow-step__icon" aria-hidden="true">&lt;/&gt;</div>
-          <small>CODE</small><h3>구조를 실제 화면으로</h3><p>HTML · CSS · JavaScript</p><b>디자인을 제품으로</b>
-        </article>
-        <article class="workflow-step reveal" role="listitem" data-step="motion">
-          <span>04</span><div class="workflow-step__icon" aria-hidden="true">↗</div>
-          <small>MOTION</small><h3>행동에 피드백을 추가</h3><p>Scroll · Hover · Transition</p><b>상태를 경험으로</b>
-        </article>
-        <article class="workflow-step reveal" role="listitem" data-step="deploy">
-          <span>05</span><div class="workflow-step__icon" aria-hidden="true">●</div>
-          <small>DEPLOY</small><h3>검증하고 세상에 공개</h3><p>Responsive QA · GitHub Pages</p><b>완성도를 결과로</b>
-        </article>
-      </div>
-      <div class="workflow-progress" aria-hidden="true"><i></i></div>
-    </section>
-
-    <section class="ai-workflow section" id="ai-workflow">
-      <div class="section-label reveal"><span>04</span><p>AI COLLABORATION</p></div>
-      <div class="ai-workflow__head reveal">
-        <div><p>AI가 대신 디자인하지 않습니다.</p><h2>AI의 속도 위에,<br /><em>디자이너의 판단</em>을 더합니다.</h2></div>
-        <p>AI는 더 많이 보고 더 빨리 시도하기 위한 협업 도구입니다. 무엇을 남기고 무엇을 덜어낼지는 직접 판단합니다.</p>
-      </div>
-      <div class="ai-lab reveal">
-        <div class="ai-lab__visual">
-          <div class="ai-lab__window">
-            <div class="ai-lab__chrome"><i></i><i></i><i></i><span>FLOWLY / ITERATION</span></div>
-            <img src="assets/flowly-dashboard-card.png" alt="AI 탐색과 직접 수정을 거친 Flowly 대시보드 화면" />
-          </div>
-          <div class="ai-lab__route" aria-label="AI 협업 과정">
-            <span>PROMPT</span><b>→</b><span>GENERATE</span><b>→</b><span>COMPARE</span><b>→</b><span>EDIT</span><b>→</b><span>QA</span>
-          </div>
-        </div>
-        <div class="ai-compare">
-          <div class="ai-compare__tabs" role="tablist" aria-label="AI 초안과 직접 수정 비교">
-            <button type="button" role="tab" aria-selected="true" data-ai-view="draft">AI 초안</button>
-            <button type="button" role="tab" aria-selected="false" data-ai-view="refined">하린의 수정</button>
-          </div>
-          <div class="ai-compare__body">
-            <div class="ai-state is-active" data-ai-state="draft">
-              <small>FAST EXPLORATION</small><h3>가능성을 넓히는 단계</h3>
-              <ul><li>다양한 정보 구조와 레이아웃 후보 생성</li><li>문구와 기능 아이디어를 빠르게 비교</li><li>프로토타입 구현 시간을 단축</li></ul>
-            </div>
-            <div class="ai-state" data-ai-state="refined" hidden>
-              <small>HUMAN DECISION</small><h3>경험을 완성하는 단계</h3>
-              <ul><li>오늘 할 일 중심으로 정보 우선순위 재설계</li><li>브랜드 톤과 컴포넌트 디테일 직접 조정</li><li>반응형·접근성·모션을 실제 브라우저에서 QA</li></ul>
-            </div>
-          </div>
-          <p class="ai-compare__note"><span>AI EXPLORES</span><i>×</i><span>HARIN DECIDES</span></p>
+      <div class="index-layout">
+        <ol class="project-list reveal">
+          <li>
+            <a href="#lumirin" data-preview="assets/lumirin-brand-values.png" data-alt="LUMIRIN의 세 가지 브랜드 가치와 공간 이미지">
+              <span class="project-no">01</span><strong>LUMIRIN</strong>
+              <span class="project-kind">브랜드 웹사이트</span><span class="project-role">개인 · 기획/디자인/구현</span><i>↘</i>
+              <span class="index-thumb"><img src="assets/lumirin-brand-values.png" alt="LUMIRIN의 세 가지 브랜드 가치를 담은 대표 이미지" loading="lazy"></span>
+            </a>
+          </li>
+          <li>
+            <a href="#cgv" data-preview="assets/cgv-redesign-preview.png" data-alt="CGV 리디자인 웹사이트 메인 화면">
+              <span class="project-no">02</span><strong>CGV 리디자인</strong>
+              <span class="project-kind">웹사이트 리디자인</span><span class="project-role">개인 · 분석/IA/UI/프로토타입</span><i>↘</i>
+              <span class="index-thumb"><img src="assets/cgv-redesign-preview.png" alt="CGV 리디자인 웹사이트 대표 화면" loading="lazy"></span>
+            </a>
+          </li>
+          <li>
+            <a href="#petory" data-preview="" data-alt="PETORY 커뮤니티 중심 반려동물 앱">
+              <span class="project-no">03</span><strong>PETORY</strong>
+              <span class="project-kind">반려인 커뮤니티 서비스</span><span class="project-role">2인 팀 · 기획/UI·UX 전반 주도</span><i>↘</i>
+              <span class="index-thumb petory-thumb">PETORY</span>
+            </a>
+          </li>
+          <li>
+            <a href="#flowly" data-preview="assets/flowly-dashboard-card-hd.png" data-alt="Flowly 생산성 대시보드">
+              <span class="project-no">04</span><strong>FLOWLY</strong>
+              <span class="project-kind">생산성 대시보드</span><span class="project-role">개인 · 기획/UI/웹 구현</span><i>↘</i>
+              <span class="index-thumb"><img src="assets/flowly-dashboard-card-hd.png" alt="Flowly 대시보드 대표 이미지" loading="lazy"></span>
+            </a>
+          </li>
+        </ol>
+        <div class="index-preview reveal delay-1" aria-live="polite">
+          <img src="assets/lumirin-brand-values.png" alt="LUMIRIN의 세 가지 브랜드 가치와 공간 이미지">
+          <div class="petory-preview" hidden><span>PETORY</span><small>공유 · 연결 · 돌봄</small></div>
         </div>
       </div>
     </section>
 
-    <section class="archive section archive--editorial" id="archive">
-      <div class="section-label reveal"><span>01</span><p>SELECTED WORK</p></div>
-      <div class="archive__head">
-        <h2 aria-label="네 개의 프로젝트, 하나의 시선."><span class="archive-title__line">네 개의 프로젝트,</span><span class="archive-title__line archive-title__line--accent"><em>하나의 시선.</em></span></h2>
-        <div class="work-count"><strong data-count="4">04</strong><span>SELECTED<br />PROJECTS</span></div>
+    <section class="slide project project-lumirin" id="lumirin" data-section="04" aria-labelledby="lumirin-title">
+      <div class="project-head reveal">
+        <div>
+          <p class="eyebrow">04 · 브랜딩 / 웹 디자인</p>
+          <h2 id="lumirin-title">LUMIRIN</h2>
+        </div>
+        <p class="project-summary">빛과 여백으로 설계한<br>조용한 캔들 브랜드 경험.</p>
       </div>
-
-      <div class="project-grid" aria-label="4개 프로젝트 목록">
-        <article class="project-card project-card--lumirin reveal" data-project="lumirin">
-          <button class="project-card__back" type="button" aria-label="LUMIRIN 전체 화면 닫기">← 뒤로가기</button>
-          <div class="project-card__visual" aria-label="LUMIRIN 프로젝트 대표 이미지" role="img">
-            <span>01 · BRAND EXPERIENCE</span><b>↗</b><div></div>
-          </div>
-          <div class="project-card__body">
-            <div><p>Warm light, clear structure.</p><h3>LUMIRIN</h3><small>감성 캔들 브랜드의 분위기를 세 개의 웹 경험으로 연결했습니다.</small><nav class="project-page-links" aria-label="LUMIRIN 페이지 바로가기"><a href="projects/lumirin/index.html" target="_blank" rel="noopener">메인</a><a href="projects/lumirin/story/index.html" target="_blank" rel="noopener">브랜드 스토리</a><a href="projects/lumirin/collection/index.html" target="_blank" rel="noopener">제품 컬렉션</a></nav></div>
-            <dl class="project-meta"><div><dt>ROLE</dt><dd>Brand Web Designer</dd></div><div><dt>DURATION</dt><dd>Personal Sprint</dd></div><div><dt>CONTRIBUTION</dt><dd>100% · 개인 작업</dd></div><div><dt>TOOLS</dt><dd>Figma · AI · HTML/CSS</dd></div></dl>
-            <section class="project-detail project-detail--lumirin" aria-label="LUMIRIN 프로젝트 상세 설명">
-              <header class="project-detail__intro">
-                <div><span>PROJECT OVERVIEW</span><h4>빛의 온도를<br />브랜드 경험으로.</h4></div>
-                <p>빛과 감성을 담은 라이프스타일 브랜드 프로젝트입니다. 메인, 브랜드 스토리, 제품 컬렉션을 하나의 흐름으로 연결해 제품보다 브랜드의 분위기와 가치를 먼저 경험하도록 설계했습니다.</p>
-              </header>
-
-              <div class="project-detail__columns">
-                <article><span>01 · GOAL</span><h5>감성과 사용성의 균형</h5><ul><li>스토리가 자연스럽게 읽히는 구조</li><li>반응형에서도 유지되는 브랜드 경험</li></ul></article>
-                <article><span>02 · MY ROLE</span><h5>기획부터 구현까지</h5><ul><li>브랜드 콘셉트 · IA · UI 디자인</li><li>HTML · CSS · JavaScript · 반응형 QA</li></ul></article>
-                <article><span>03 · AI COLLABORATION</span><h5>탐색은 빠르게, 결정은 직접</h5><ul><li>레이아웃과 구현 방향을 빠르게 비교</li><li>생성 결과를 목적에 맞게 수정·검증</li></ul></article>
-              </div>
-
-              <div class="project-detail__pages">
-                <article><span>01 · MAIN PAGE</span><h5>첫인상을 만드는 장면</h5><p>브랜드 메시지와 비주얼을 먼저 보여주고 다음 콘텐츠로 자연스럽게 연결했습니다.</p><a href="projects/lumirin/index.html" target="_blank" rel="noopener">메인 페이지 보기 ↗</a></article>
-                <article><span>02 · BRAND STORY</span><h5>가치에 공감하는 흐름</h5><p>브랜드 철학을 스크롤과 타이포그래피 중심의 이야기로 전달했습니다.</p><a href="projects/lumirin/story/index.html" target="_blank" rel="noopener">브랜드 스토리 보기 ↗</a></article>
-                <article><span>03 · PRODUCT COLLECTION</span><h5>정보를 명확하게 탐색</h5><p>제품 정보와 카드 구조를 정리해 탐색의 부담을 줄였습니다.</p><a href="projects/lumirin/collection/index.html" target="_blank" rel="noopener">제품 컬렉션 보기 ↗</a></article>
-              </div>
-
-              <div class="project-detail__problems">
-                <article><span>PROBLEM 01</span><h5>감성과 정보 전달의 균형</h5><p>콘텐츠 우선순위를 재정리하고 여백과 타이포그래피로 시각적 흐름을 명확하게 만들었습니다.</p></article>
-                <article><span>PROBLEM 02</span><h5>모션으로 인한 집중도 저하</h5><p>애니메이션을 필요한 구간에만 제한하고 콘텐츠를 강조하는 방향으로 움직임을 정리했습니다.</p></article>
-                <article><span>PROBLEM 03</span><h5>반응형 레이아웃의 일관성</h5><p>Flex와 Grid, 세분화된 브레이크포인트를 활용해 다양한 화면에서도 같은 경험을 유지했습니다.</p></article>
-              </div>
-
-              <blockquote><span>WHAT I LEARNED</span><p>브랜드 경험은 한 화면이 아니라 모든 접점의 일관성에서 완성된다는 것을 배웠습니다. AI는 탐색을 빠르게 만들고, 최종 경험은 직접 수정하고 검증했습니다.</p></blockquote>
-            </section>
-            <div class="project-card__actions"><button class="project-card__more" type="button">See more <span>↗</span></button><a class="project-card__case" href="projects/case-study.html?project=lumirin">Case Study</a></div>
-          </div>
-        </article>
-
-        <article class="project-card project-card--cgv reveal" data-project="cgv">
-          <button class="project-card__back" type="button" aria-label="CGV 전체 화면 닫기">← 뒤로가기</button>
-          <div class="project-card__visual" aria-label="CGV 리디자인 프로젝트 대표 이미지" role="img">
-            <span>02 · CINEMA REDESIGN</span><b>↗</b><div></div>
-          </div>
-          <div class="project-card__body">
-            <div><p>From browsing to immersion.</p><h3>CGV</h3><small>영화를 고르는 순간부터 몰입이 시작되도록 시네마 경험을 재구성했습니다.</small></div>
-            <dl class="project-meta"><div><dt>ROLE</dt><dd>UI/UX Redesign</dd></div><div><dt>DURATION</dt><dd>Personal Sprint</dd></div><div><dt>CONTRIBUTION</dt><dd>100% · 개인 작업</dd></div><div><dt>TOOLS</dt><dd>Figma · HTML/CSS · JS</dd></div></dl>
-            <section class="project-detail project-detail--cgv" aria-label="CGV 리디자인 핵심 설명">
-              <header class="cgv-detail__lead">
-                <div><span>DESIGN CONCEPT</span><h4>아우라 속에서 펼쳐지는<br />몰입의 깊은 즐거움.</h4></div>
-                <p>영화를 예매하는 기능을 넘어, 콘텐츠를 탐색하는 순간부터 작품의 분위기와 기대감을 경험하도록 재설계했습니다.</p>
-              </header>
-              <div class="cgv-detail__keywords">
-                <article><span>01 · AURA</span><h5>빛으로 만드는 존재감</h5><p>포스터와 글로우 인터랙션으로 영화의 분위기를 강조했습니다.</p></article>
-                <article><span>02 · IMMERSION</span><h5>콘텐츠에 집중하는 흐름</h5><p>불필요한 요소를 덜어내고 포스터 중심의 탐색 구조를 설계했습니다.</p></article>
-                <article><span>03 · DEPTH</span><h5>레이어가 만드는 공간감</h5><p>투명도와 카드 레이어를 활용해 화면에 시네마틱 깊이를 더했습니다.</p></article>
-              </div>
-              <p class="cgv-detail__ai"><span>AI WORKFLOW</span><b>브랜드 분석</b><i>→</i><b>UX 구조</b><i>→</i><b>UI 시스템</b><i>→</i><b>코드·인터랙션</b><i>→</i><b>직접 수정·QA</b></p>
-            </section>
-            <div class="project-card__actions"><button class="project-card__more" type="button">See more <span>↗</span></button><a class="project-card__case" href="projects/cgv-process/index.html" target="_blank" rel="noopener">프로세스 보기 ↗</a><a href="projects/cgv-redesign/index.html" target="_blank" rel="noopener">사이트 보기 ↗</a></div>
-          </div>
-        </article>
-
-        <article class="project-card project-card--petory reveal" data-project="petory">
-          <button class="project-card__back" type="button" aria-label="PETORY 전체 화면 닫기">← 뒤로가기</button>
-          <div class="project-card__visual" aria-label="PETORY 프로젝트 대표 이미지" role="img">
-            <span>03 · PET COMPANION UX</span><b>↗</b><div><i></i><i></i><i></i><strong>PETORY</strong></div>
-          </div>
-          <div class="project-card__body">
-            <div><p>Small records, lasting memories.</p><h3>PETORY</h3><small>반려동물의 일상을 기록하고 관계를 이어주는 친근한 경험을 설계했습니다.</small></div>
-            <dl class="project-meta"><div><dt>ROLE</dt><dd>Product Designer</dd></div><div><dt>DURATION</dt><dd>UX Project</dd></div><div><dt>CONTRIBUTION</dt><dd>Research · UX · UI</dd></div><div><dt>TOOLS</dt><dd>Figma · Prototype</dd></div></dl>
-            <div class="project-card__actions"><button class="project-card__more" type="button">See more <span>↗</span></button><a class="project-card__case" href="projects/case-study.html?project=petory">Case Study</a></div>
-          </div>
-        </article>
-
-        <article class="project-card project-card--flowly reveal" data-project="flowly">
-          <button class="project-card__back" type="button" aria-label="Flowly 전체 화면 닫기">← 뒤로가기</button>
-          <div class="project-card__visual" aria-label="Flowly 프로젝트 대표 이미지" role="img">
-            <span>04 · AI PRODUCTIVITY</span><b>↗</b><div></div>
-          </div>
-          <div class="project-card__body">
-            <div><p>One dashboard, one clear flow.</p><h3>Flowly</h3><small>AI와 직접 구현을 연결해 업무의 우선순위를 한 화면에 정리했습니다.</small></div>
-            <dl class="project-meta"><div><dt>ROLE</dt><dd>AI Product Designer</dd></div><div><dt>DURATION</dt><dd>Personal Sprint</dd></div><div><dt>CONTRIBUTION</dt><dd>UX · UI · Code · QA</dd></div><div><dt>TOOLS</dt><dd>Figma · AI · React</dd></div></dl>
-            <section class="project-detail project-detail--flowly" aria-label="Flowly 프로젝트 핵심 설명">
-              <header class="flowly-detail__lead">
-                <div><span>PROJECT OVERVIEW</span><h4>흩어진 업무를<br />하나의 흐름으로.</h4></div>
-                <p>여러 도구에 흩어진 업무와 진행 상태를 한 화면에서 판단하고 실행하며 회고할 수 있도록 설계한 생산성 대시보드입니다.</p>
-              </header>
-              <div class="flowly-detail__focus">
-                <article><span>01 · PROBLEM</span><h5>도구 사이에서 끊기는 맥락</h5><p>할 일과 성과 정보가 분리되어 현재 상태와 다음 행동을 함께 판단하기 어려웠습니다.</p></article>
-                <article><span>02 · DESIGN DECISION</span><h5>판단 → 실행 → 회고</h5><p>KPI, 오늘의 할 일, 진행 인사이트 순서로 정보 위계를 다시 구성했습니다.</p></article>
-                <article><span>03 · RESULT</span><h5>한 화면에서 이어지는 업무</h5><p>사용자가 우선순위를 확인하고 필요한 행동으로 바로 이동하는 흐름을 완성했습니다.</p></article>
-              </div>
-              <p class="flowly-detail__ai"><span>AI COLLABORATION</span><b>문제 탐색</b><i>→</i><b>정보 구조</b><i>→</i><b>UI 비교</b><i>→</i><b>React 구현</b><i>→</i><b>직접 수정·QA</b></p>
-            </section>
-            <div class="project-card__actions"><button class="project-card__more" type="button">See more <span>↗</span></button><a class="project-card__case" href="projects/flowly-case-study-v12/index.html" target="_blank" rel="noopener">프로세스 보기 ↗</a><a href="projects/flowly-app/index.html" target="_blank" rel="noopener">앱 보기 ↗</a></div>
-          </div>
-        </article>
+      <figure class="project-hero reveal">
+        <a href="projects/lumirin-main/index.html" target="_blank" rel="noopener" aria-label="LUMIRIN 메인 웹사이트 새 탭에서 보기">
+          <img src="assets/lumirin-brand-values.png" alt="자연스럽게 스며들고 감정과 공간에 머무는 LUMIRIN의 세 가지 브랜드 가치" loading="lazy" data-parallax="0.018">
+        </a>
+      </figure>
+      <div class="project-info reveal">
+        <dl>
+          <div><dt>유형</dt><dd>개인 프로젝트</dd></div>
+          <div><dt>분야</dt><dd>브랜딩 · 웹 디자인</dd></div>
+          <div><dt>범위</dt><dd>브랜드 콘셉트 · 메인 페이지 · 제품 컬렉션 · 브랜드 스토리 · 반응형 인터랙션</dd></div>
+          <div><dt>도구</dt><dd>Figma · HTML · CSS · JavaScript</dd></div>
+        </dl>
+        <p class="project-keyword">자연광 · 낮은 채도 · 잔잔한 존재감</p>
       </div>
-      <p class="archive-note">서로 다른 브랜드와 사용자 문제를 하나의 일관된 작업 태도로 풀어냈습니다. <span>→</span></p>
+      <div class="result-grid">
+        <a class="result-card reveal" href="projects/lumirin-main/index.html" target="_blank" rel="noopener">
+          <span>01 · 메인 웹사이트</span><strong>Quiet colors,<br>gentle scents.</strong><i>↗</i>
+        </a>
+        <a class="result-card reveal delay-1 collection-card" href="projects/lumirin-collection/index.html" target="_blank" rel="noopener">
+          <img src="projects/lumirin-collection/assets/hero.webp" alt="" loading="lazy">
+          <span>02 · 제품 컬렉션</span><strong>빛으로 머무는 향</strong><i>↗</i>
+        </a>
+        <a class="result-card reveal delay-2 story-card" href="projects/lumirin-brand-story/index.html" target="_blank" rel="noopener">
+          <img src="projects/lumirin-brand-story/assets/p01-00.webp" alt="" loading="lazy">
+          <span>03 · 브랜드 스토리</span><strong>공기의 결을 다듬다</strong><i>↗</i>
+        </a>
+      </div>
     </section>
 
-    <section class="closing section">
-      <p class="reveal">DESIGN · AI · CODE · MOTION · SHIP</p>
-      <h2 class="reveal">좋은 질문에서 시작해,<br /><em>작동하는 경험으로.</em></h2>
-      <div class="closing__bottom reveal"><p>함께 해결하고 싶은 문제가 있다면<br />편하게 이야기를 들려주세요.</p><a class="circle-link magnetic" href="mailto:hello@harin.design">CONTACT<br />ME <span>↗</span></a></div>
+    <section class="slide project project-cgv theme-dark" id="cgv" data-section="05" aria-labelledby="cgv-title">
+      <div class="project-head reveal">
+        <div>
+          <p class="eyebrow">05 · 웹사이트 리디자인 / UI/UX</p>
+          <h2 id="cgv-title">CGV</h2>
+        </div>
+        <p class="project-summary"><strong>아우라 속에서 펼쳐지는<br>몰입의 깊은 즐거움.</strong></p>
+      </div>
+      <figure class="project-hero cgv-visual reveal">
+        <a href="projects/cgv-redesign/index.html" target="_blank" rel="noopener" aria-label="CGV 리디자인 웹사이트 새 탭에서 보기">
+          <img src="assets/cgv-redesign-preview.png" alt="영화 순위와 예매 인터페이스를 보여주는 CGV 리디자인 웹사이트" loading="lazy" data-parallax="0.02">
+        </a>
+      </figure>
+      <div class="project-info reveal">
+        <dl>
+          <div><dt>유형</dt><dd>개인 프로젝트</dd></div>
+          <div><dt>분야</dt><dd>웹사이트 리디자인 · UI/UX</dd></div>
+          <div><dt>범위</dt><dd>문제 정의 · UX 전략 · 디자인 시스템 · 인터랙션 · 반응형 프로토타입</dd></div>
+          <div><dt>도구</dt><dd>Figma · HTML · CSS · JavaScript</dd></div>
+        </dl>
+        <div>
+          <ul class="strategy-list">
+            <li>정보 우선순위</li><li>몰입형 탐색</li><li>명확한 예매 버튼</li><li>시네마 무드</li>
+          </ul>
+        </div>
+      </div>
+      <div class="project-actions reveal">
+        <a class="button button-light" href="projects/cgv-redesign/index.html" target="_blank" rel="noopener">웹사이트 보기 <span>↗</span></a>
+        <a class="button button-light" href="projects/cgv-case-study/index.html" target="_blank" rel="noopener">케이스 스터디 보기 <span>↗</span></a>
+      </div>
+    </section>
+
+    <section class="slide project project-petory" id="petory" data-section="06" aria-labelledby="petory-title">
+      <div class="project-head reveal">
+        <div>
+          <p class="eyebrow">06 · 커뮤니티 앱 / UI/UX</p>
+          <h2 id="petory-title">PETORY</h2>
+        </div>
+        <p class="project-summary">경험을 나누고 함께 해결하는<br>반려인 커뮤니티 서비스.</p>
+      </div>
+      <div class="petory-board reveal">
+        <div class="petory-word">PETORY<span>반려인의 모든 이야기가 이어지는 커뮤니티</span></div>
+        <ol>
+          <li><b>01</b><strong>커뮤니티</strong><span>경험과 정보 공유</span></li>
+          <li><b>02</b><strong>전문가 연결</strong><span>필요할 때 전문가 연결</span></li>
+          <li><b>03</b><strong>기록</strong><span>돌봄 기록과 가족 공동 관리</span></li>
+        </ol>
+      </div>
+      <div class="project-info reveal">
+        <dl>
+          <div><dt>유형</dt><dd>2인 팀 프로젝트</dd></div>
+          <div><dt>분야</dt><dd>커뮤니티 앱 · UI/UX</dd></div>
+          <div><dt>내 역할</dt><dd>기획 리드 · 전체 UI/UX 디자인</dd></div>
+          <div><dt>범위</dt><dd>커뮤니티 경험 · 전문가 연결 · 반려동물 기록 · 가족 공동 관리</dd></div>
+        </dl>
+        <p class="project-keyword">커뮤니티 중심 · 전문가 연결 · 함께 돌봄</p>
+      </div>
+    </section>
+
+    <section class="slide project project-flowly" id="flowly" data-section="07" aria-labelledby="flowly-title">
+      <div class="project-head reveal">
+        <div>
+          <p class="eyebrow">07 · 생산성 대시보드 / UI 디자인</p>
+          <h2 id="flowly-title">Flowly</h2>
+        </div>
+        <p class="project-summary">흩어진 업무를<br>하나의 흐름으로.</p>
+      </div>
+      <figure class="project-hero flowly-visual reveal">
+        <a href="projects/flowly-app/static.html?v=20260727-7" aria-label="Flowly 실제 앱 화면 열기">
+          <img src="assets/flowly-dashboard-card-hd.png" alt="Flowly 대시보드의 오늘 할 일, 생산성, 프로젝트 진행 화면" loading="lazy" data-parallax="0.02">
+        </a>
+      </figure>
+      <div class="project-actions reveal">
+        <a class="button" href="projects/flowly-case-study-v12/static.html?v=20260727-5">프로세스 보기 <span>→</span></a>
+        <a class="button button-solid" href="projects/flowly-app/static.html?v=20260727-7">앱 보기 <span>→</span></a>
+      </div>
+      <div class="project-info reveal">
+        <dl>
+          <div><dt>유형</dt><dd>개인 프로젝트</dd></div>
+          <div><dt>분야</dt><dd>생산성 대시보드 · UI 디자인</dd></div>
+          <div><dt>범위</dt><dd>업무 관리 · 생산성 추적 · 프로젝트 진행 · 반응형 UI</dd></div>
+          <div><dt>도구</dt><dd>Figma · React · Vite</dd></div>
+        </dl>
+        <div>
+          <div class="flow-line" aria-label="Flowly 사용 흐름"><span>판단</span><i>→</i><span>실행</span><i>→</i><span>회고</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide process theme-dark" id="process" data-section="08" aria-labelledby="process-title">
+      <div class="section-heading reveal">
+        <p class="eyebrow">08 · 디자인 과정</p>
+        <h2 id="process-title">문제에서<br>작동하는 경험까지.</h2>
+        <p>프로젝트에 맞춰 순서와 비중을 조정합니다.</p>
+      </div>
+      <ol class="process-list">
+        <li class="reveal"><span>01</span><strong>조사</strong><p>사용자와 서비스의 맥락 조사</p></li>
+        <li class="reveal delay-1"><span>02</span><strong>정의</strong><p>핵심 문제와 목표 정의</p></li>
+        <li class="reveal"><span>03</span><strong>구조 설계</strong><p>IA, 사용자 흐름, 콘텐츠 우선순위 설계</p></li>
+        <li class="reveal delay-1"><span>04</span><strong>UI 디자인</strong><p>와이어프레임, 시스템, 최종 UI 제작</p></li>
+        <li class="reveal"><span>05</span><strong>프로토타입</strong><p>인터랙션 설계와 AI를 활용한 코드 구현</p></li>
+        <li class="reveal delay-1"><span>06</span><strong>테스트와 개선</strong><p>반응형 테스트, 오류 수정, 디테일 개선</p></li>
+      </ol>
+    </section>
+
+    <section class="slide ai-section" id="ai-collaboration" data-section="09" aria-labelledby="ai-title">
+      <div class="section-heading reveal">
+        <p class="eyebrow">09 · AI-ASSISTED BUILD</p>
+        <h2 id="ai-title">디자인은 직접 설계하고,<br>코딩은 AI와 함께했습니다.</h2>
+      </div>
+      <div class="ai-grid">
+        <p class="lead reveal">문제 정의와 구조, UI와 인터랙션 방향은 직접 설계했습니다.<br>HTML·CSS·JavaScript·React 코드 구현은 대부분 AI를 활용했고, 결과 검토와 수정은 직접 진행했습니다.</p>
+        <ul class="reveal delay-1">
+          <li><span>01 · HUMAN DIRECTION</span>UX 구조와 UI 방향 직접 설계</li>
+          <li><span>02 · AI CODING</span>코드 구현 대부분에 AI 활용</li>
+          <li><span>03 · REVIEW &amp; REFINE</span>테스트와 최종 수정 직접 진행</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide contact" id="contact" data-section="10" aria-labelledby="contact-title">
+      <div class="contact-inner reveal">
+        <p class="eyebrow">10 · CONTACT</p>
+        <h2 id="contact-title">THANK YOU<br>FOR WATCHING.</h2>
+        <p>문제를 명확한 흐름과 작동하는 경험으로 만듭니다.</p>
+      </div>
+      <footer class="contact-footer">
+        <div><span>EOM HARIN</span><span>UI/UX DESIGNER</span><span>DAEJEON, KOREA</span></div>
+        <a href="#cover">BACK TO TOP <span>↑</span></a>
+        <small>PORTFOLIO · 2026</small>
+      </footer>
     </section>
   </main>
-
-  <footer><span>HARIN © 2026</span><p>AI-DRIVEN UI/UX DESIGNER</p><a href="#top">BACK TO TOP ↑</a></footer>
-  <script src="script.js?v=intro-smooth-10"></script>
-  <script src="cursor.js?v=1"></script>
 </body>
 </html>
