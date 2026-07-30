@@ -126,7 +126,7 @@
         entry.target.classList.add("is-visible");
         observer.unobserve(entry.target);
       });
-    }, { threshold: 0.04, rootMargin: "0px 0px -3% 0px" });
+    }, { threshold: 0.15, rootMargin: "0px 0px -12% 0px" });
     reveals.forEach((element) => revealObserver.observe(element));
 
     let revealFrame = null;
@@ -134,7 +134,7 @@
       revealFrame = null;
       reveals.forEach((element) => {
         if (element.classList.contains("is-visible")) return;
-        if (element.getBoundingClientRect().top > window.innerHeight * 0.97) return;
+        if (element.getBoundingClientRect().top > window.innerHeight * 0.88) return;
         element.classList.add("is-visible");
         revealObserver.unobserve(element);
       });
@@ -179,25 +179,48 @@
 
   document.querySelectorAll(".button").forEach((button) => {
     const release = () => button.classList.remove("is-pressed");
-    button.addEventListener("pointerdown", () => button.classList.add("is-pressed"));
+    button.addEventListener("pointerdown", (event) => {
+      const rect = button.getBoundingClientRect();
+      button.style.setProperty("--press-x", `${event.clientX - rect.left}px`);
+      button.style.setProperty("--press-y", `${event.clientY - rect.top}px`);
+      button.classList.remove("is-rippling");
+      void button.offsetWidth;
+      button.classList.add("is-rippling", "is-pressed");
+    });
     button.addEventListener("pointerup", release);
     button.addEventListener("pointerleave", release);
     button.addEventListener("blur", release);
+    button.addEventListener("animationend", () => button.classList.remove("is-rippling"));
   });
 
   if (!reducedMotion) {
     document.addEventListener("click", (event) => {
       const link = event.target.closest("a[href]");
-      if (!link || event.defaultPrevented || link.target === "_blank" || link.hasAttribute("download")) return;
+      if (!link || event.defaultPrevented || link.hasAttribute("download")) return;
       if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       const destination = new URL(link.href, window.location.href);
+      if (link.target === "_blank" && destination.origin === window.location.origin) {
+        const newTab = window.open("about:blank", "_blank");
+        if (!newTab) return;
+        event.preventDefault();
+        link.classList.add("is-launching");
+        newTab.opener = null;
+        newTab.document.open();
+        newTab.document.write(`<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>프로젝트 여는 중</title><style>*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:#171719;color:#f4f1e9;font-family:Arial,sans-serif;overflow:hidden}.mark{font-size:13px;font-weight:700;letter-spacing:.18em}.mark:after{content:"";display:block;width:100%;height:2px;margin-top:16px;background:#ff6c5d;transform-origin:left;animation:load .52s cubic-bezier(.22,.75,.24,1) both}@keyframes load{from{transform:scaleX(0)}to{transform:scaleX(1)}}@media(prefers-reduced-motion:reduce){.mark:after{animation:none}}</style></head><body><div class="mark">OPENING PROJECT</div></body></html>`);
+        newTab.document.close();
+        window.setTimeout(() => {
+          newTab.location.replace(destination.href);
+          link.classList.remove("is-launching");
+        }, 560);
+        return;
+      }
       if (destination.origin !== window.location.origin || destination.pathname === window.location.pathname) return;
       event.preventDefault();
       document.body.classList.remove("is-ready");
       document.body.classList.add("is-leaving");
       window.setTimeout(() => {
         window.location.href = destination.href;
-      }, 560);
+      }, 680);
     });
   }
 
